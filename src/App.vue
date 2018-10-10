@@ -1,5 +1,4 @@
-<template>
-  <div id="app">
-    <router-view/>
-  </div>
+<template lang="pug">
+  #app
+    router-view
 </template>
