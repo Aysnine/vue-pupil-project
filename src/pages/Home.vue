@@ -6,21 +6,14 @@
 </template>
 
 <script>
-import LoginBox from '@/components/LoginBox.vue'
-import PrettyTips from '@/components/PrettyTips.vue'
-
 export default {
-  name: 'home',
-  components: {
-    LoginBox,
-    PrettyTips
-  }
+  name: 'home'
 }
 </script>
 
 <style lang="stylus" scoped>
 .wrap-page
-  margin 50px auto
+  margin 40px auto
   text-align center
   .logo-image
     height 160px

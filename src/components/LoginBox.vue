@@ -1,13 +1,19 @@
 <template lang="pug">
   .login-box
     slot(name='prepend')
-    el-form(:model='form', status-icon='', :rules='rules', ref='form', label-width='0')
+    el-form(:model='form', status-icon, :rules='rules', ref='form', label-width='0')
       el-form-item(prop='account')
-        el-input(type='text', v-model='form.account', autocomplete='off', placeholder='请输入', clearable='')
+        el-input(type='text', v-model='form.account', autocomplete='off', placeholder='请输入', clearable)
           span.text-spaced(slot='prepend') 账号
       el-form-item(prop='pass')
-        el-input(type='password', v-model='form.pass', autocomplete='off', placeholder='请输入', clearable='')
+        el-input(type='password', v-model='form.pass', autocomplete='off', placeholder='请输入', clearable)
           span.text-spaced(slot='prepend') 密码
+      el-form-item(prop='identify')
+        el-row(:gutter='24')
+          el-col(:span='12')
+            identify-code(ref='identify', clickable, :backgroundColorMin='240', :contentWidth='152', :contentHeight='40')
+          el-col(:span='12')
+            el-input(type='text' v-model='form.identify', autocomplete='off', placeholder='请输入图片内容')
       el-form-item
         el-button.button-inline(type='primary', @click='handleSubmit("form")')
           span.text-spaced 提交
@@ -20,19 +26,27 @@ export default {
     message: String
   },
   data() {
+    const identifyValidator = (rule, value, callback) => {
+      if (value === this.$refs['identify'].identifyCode) {
+        callback()
+      } else {
+        callback(new Error('验证码错误!'))
+      }
+    }
     return {
       form: {
         account: '',
-        pass: ''
+        pass: '',
+        identify: ''
       },
       rules: {
         account: [
           { required: true, message: '请填写账号', trigger: 'blur' },
           {
             type: 'string',
-            max: 64,
-            min: 6,
-            message: '长度 6~64 个字符',
+            max: 32,
+            min: 5,
+            message: '长度 5~32 个字符',
             trigger: 'change'
           }
         ],
@@ -40,10 +54,20 @@ export default {
           { required: true, message: '请填写密码', trigger: 'blur' },
           {
             type: 'string',
-            max: 64,
-            min: 6,
-            message: '长度 6~64 个字符',
+            max: 32,
+            min: 5,
+            message: '长度 5~32 个字符',
             trigger: 'change'
+          }
+        ],
+        identify: [
+          {
+            required: true,
+            message: '请填写图片中出现的内容',
+            trigger: 'blur'
+          },
+          {
+            validator: identifyValidator
           }
         ]
       }
@@ -53,9 +77,18 @@ export default {
     handleSubmit() {
       this.$refs['form'].validate(valid => {
         if (valid) {
-          alert('submit!')
+          this.$store
+            .dispatch('login', {
+              account: this.form.account,
+              pass: this.form.pass
+            })
+            .then(res => {
+              this.$message.success(res.msg || 'emmm...')
+            })
+            .catch(err => {
+              this.$message.error(err.msg)
+            })
         } else {
-          console.log('error submit!!')
           return false
         }
       })

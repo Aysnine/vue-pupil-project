@@ -1,3 +1,5 @@
+import { userLogin } from '@/api/app'
+
 export default {
   state: {
     isLogin: false
@@ -8,12 +10,13 @@ export default {
     }
   },
   actions: {
-    async login({ commit }) {
+    async login({ commit }, { account, pass }) {
       try {
-        // ... request in here
+        let res = await userLogin({ account, pass })
         commit('SET_IS_LOGIN', true)
+        return res
       } catch (err) {
-        return err
+        throw err // ! must throw if you neet .catch()
       }
     }
   }

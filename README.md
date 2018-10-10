@@ -1,3 +1,6 @@
+
+![preview.png](preview.png)
+
 # vue-pupil-project
 
 ## Project setup
