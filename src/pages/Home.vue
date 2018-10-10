@@ -1,18 +1,28 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+  .wrap-page
+    img.logo-image(alt='Pupil logo', src='../assets/logo.png')
+    login-box(style='margin: auto', message='hello')
+      pretty-tips(slot='prepend', align='center', message='账号 admin，密码 admin')
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import LoginBox from '@/components/LoginBox.vue'
+import PrettyTips from '@/components/PrettyTips.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    LoginBox,
+    PrettyTips
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+.wrap-page
+  margin 50px auto
+  text-align center
+  .logo-image
+    height 160px
+    margin 1em
+</style>
