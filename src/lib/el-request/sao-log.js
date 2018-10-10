@@ -45,7 +45,7 @@ function render (method, status, url, other) {
       `🚜%c ${method} %c ${status} %c ${url} %c ${other}`,
       "background:#35495e ; padding: 1px 0; border-radius: 3px 0 0 3px;  color: #fff",
       "background:#009688 ; padding: 1px 0; color: #fff",
-      "background: transparent; border: 1px solid #009688 ; padding: 0px; border-radius: 0 3px 3px 0;  color: #fff",
+      "background: transparent; border: 1px solid #009688 ; padding: 0px; border-radius: 0 3px 3px 0;  color: #009688",
       "background:transparent; color: #90939975"
     ]
   } else {
@@ -53,7 +53,7 @@ function render (method, status, url, other) {
       `🚒%c ${method} %c ${status} %c ${url} %c ${other}`,
       "background:#35495e ; padding: 1px 0; border-radius: 3px 0 0 3px;  color: #fff",
       "background:#E91E63 ; padding: 1px 0; color: #fff",
-      "background: transparent; border: 1px solid #E91E63 ; padding: 0px; border-radius: 0 3px 3px 0;  color: #fff",
+      "background: transparent; border: 1px solid #E91E63 ; padding: 0px; border-radius: 0 3px 3px 0;  color: #E91E63",
       "background:transparent; color: #90939975"
     ]
   }
