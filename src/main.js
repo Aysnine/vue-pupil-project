@@ -17,6 +17,7 @@ import ElementUI from 'element-ui'
 
 Vue.use(ElementUI, { size: 'normal', locale })
 Vue.config.productionTip = false
+Vue.prototype.$env = process.env.NODE_ENV
 
 new Vue({
   router,
