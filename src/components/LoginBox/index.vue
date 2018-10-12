@@ -25,6 +25,14 @@ export default {
   props: {
     message: String
   },
+  mounted() {
+    // * for preview
+    if (this.$env === 'development') {
+      this.form.account = 'admin'
+      this.form.pass = 'admin'
+      this.form.identify = this.$refs['identify'].identifyCode
+    }
+  },
   data() {
     const identifyValidator = (rule, value, callback) => {
       if (value === this.$refs['identify'].identifyCode) {
