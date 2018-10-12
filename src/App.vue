@@ -1,4 +1,5 @@
 <template lang="pug">
   #app
-    router-view
+    transition(name='el-fade-in')
+      router-view
 </template>
