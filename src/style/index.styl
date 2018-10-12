@@ -1,9 +1,17 @@
 
-#app
+/* override normal */
+
+body
   font-family 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   color #2c3e50
+
+a
+  color #409eff
+  text-decoration none
+
+/* override element-ui */
 
 .el-form-item__error
   left 0
@@ -17,3 +25,46 @@
   min-width 300px
   p
     line-height 18px
+
+/* fade */
+
+.fade-enter-active
+.fade-leave-active
+  transition opacity 0.28s
+.fade-enter
+.fade-leave-active
+  opacity 0
+
+/* fade-transform */
+
+.fade-transform-leave-active
+.fade-transform-enter-active
+  transition: all .28s
+.fade-transform-enter
+  opacity 0
+  transform translateY(-20px)
+.fade-transform-leave-to
+  opacity 0
+  transform translateY(20px)
+
+/* override conponents */
+
+.pure-nav-menu
+  &>.el-menu-item
+  &>.el-submenu
+    .text
+      display inline-block
+      letter-spacing .5em
+      text-indent .5em
+      transition-property letter-spacing text-indent
+      transition-duration .3s
+    @media (max-width: 768px)
+      .text
+        letter-spacing 0
+        text-indent 0
+      &>.el-submenu__title
+        padding-left 1em
+        padding-right 1em
+    &.submenu-title-noDropdown
+      padding-left 1em
+      padding-right 1em
