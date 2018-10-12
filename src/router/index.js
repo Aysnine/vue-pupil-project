@@ -3,19 +3,14 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+import splash from './modules/splash'
+import admin from './modules/admin'
+
+const routes = [...splash, ...admin]
+
 export default new Router({
-  mode: 'history',
+  // mode: 'history', // ! 需要结合后端使用
+  mode: 'hash',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('@/pages/Home.vue')
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('@/pages/About.vue')
-    }
-  ]
+  routes
 })
