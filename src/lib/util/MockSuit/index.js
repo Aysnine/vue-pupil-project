@@ -53,6 +53,10 @@
 import Mock from 'mockjs'
 import qs from 'qs'
 
+// * 为 mock 的各种 bug 打补丁 :)
+import Patch from './patch'
+Patch(Mock)
+
 Mock.setup({ timeout: '200-300' })
 
 const E = (prop, template) => {
