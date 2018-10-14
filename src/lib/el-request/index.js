@@ -4,11 +4,8 @@ import axios from 'axios'
 import log from './sao-log.js'
 
 const service = axios.create({
-  baseURL: process.env.BASE_API || '/',
-  timeout: 1000 * 60 * 3,
-  headers: {
-    // 'X-Requested-With': 'XMLHttpRequest'
-  }
+  timeout: 1000 * 5,
+  // withCredentials: true
 })
 
 const smoothness = 600
@@ -42,7 +39,10 @@ const { push, pop } = (function() {
 })()
 
 service.interceptors.request.use(
-  config => (push(), config),
+  config => {
+    push()
+    return config
+  },
   error => (pop(), Promise.reject(error))
 )
 
