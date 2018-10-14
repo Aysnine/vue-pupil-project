@@ -1,4 +1,4 @@
-import MockSuit from '@/lib/util/mock.suit.js'
+import MockSuit from '@/lib/mock-suit'
 import app from '@/mock/app'
 
 MockSuit.load(app)

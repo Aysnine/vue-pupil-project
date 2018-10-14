@@ -2,7 +2,7 @@ export default [
   {
     path: /\/user\/login.*/,
     method: 'post',
-    handle({ method, url, params, body, Mock, Random, E }) {
+    handle({ /* method, url, params, body, Mock, */ Random, E }) {
       return {
         code: 0,
         msg: '登录成功',
