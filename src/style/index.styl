@@ -11,6 +11,28 @@ a
   color #409eff
   text-decoration none
 
+// FUCK SCROLLBAR STYLE maybe :)
+// ::-webkit-scrollbar-thumb
+//   background-color #ddd
+//   height 50px
+//   outline-offset -3px
+//   outline 3px solid #fff
+//   -webkit-border-radius 10px
+//   border 5px solid #fff
+//   cursor pointer
+//   &:hover
+//     background-color #ccc
+//     height 50px
+// ::-webkit-scrollbar
+//   width 18px
+//   height 18px
+//   @media (max-width: 768px)
+//     width 14px
+//     height 14px
+// ::-webkit-scrollbar-track-piece
+//   background-color transparent
+//   -webkit-border-radius 0
+
 /* override element-ui */
 
 .el-form-item__error
@@ -42,29 +64,38 @@ a
   transition: all .28s
 .fade-transform-enter
   opacity 0
-  transform translateY(-20px)
+  transform translateY(-5px)
 .fade-transform-leave-to
   opacity 0
-  transform translateY(20px)
+  transform translateY(5px)
 
 /* override conponents */
 
 .pure-nav-menu
+  position relative
+  &.horizontal
+    &>.el-menu-item
+    &>.el-submenu
+      .text
+        letter-spacing .5em
+        text-indent .5em
+      @media (max-width: 768px)
+        .text
+          letter-spacing 0
+          text-indent 0
+        &>.el-submenu__title
+          padding-left 1em
+          padding-right 1em
   &>.el-menu-item
   &>.el-submenu
     .text
       display inline-block
-      letter-spacing .5em
-      text-indent .5em
       transition-property letter-spacing text-indent
       transition-duration .3s
-    @media (max-width: 768px)
-      .text
-        letter-spacing 0
-        text-indent 0
-      &>.el-submenu__title
-        padding-left 1em
-        padding-right 1em
     &.submenu-title-noDropdown
       padding-left 1em
       padding-right 1em
+  &>.el-menu-item
+    height 60px
+    line-height 60px
+
