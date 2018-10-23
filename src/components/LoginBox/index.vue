@@ -17,6 +17,7 @@
       el-form-item
         el-button.button-inline(type='primary', @click='handleSubmit("form")')
           span.text-spaced 提交
+    slot(name='append')
 </template>
 
 <script>
@@ -92,6 +93,7 @@ export default {
             })
             .then(res => {
               this.$message.success(res.msg || 'emmm...')
+              this.$router.push('/admin/dash')
             })
             .catch(err => {
               this.$message.error(err.msg)

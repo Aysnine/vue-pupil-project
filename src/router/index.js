@@ -6,7 +6,18 @@ Vue.use(Router)
 import splash from './modules/splash'
 import admin from './modules/admin'
 
-const routes = [...splash, ...admin]
+const routes = [
+  {
+    path: '/404',
+    component: () => import('@/pages/404/index')
+  },
+  ...splash,
+  ...admin,
+  {
+    path: '*',
+    redirect: '/404'
+  }
+]
 
 export default new Router({
   // mode: 'history', // ! 需要结合后端使用

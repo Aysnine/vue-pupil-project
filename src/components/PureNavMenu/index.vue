@@ -1,10 +1,13 @@
 <template lang="pug">
   el-menu.pure-nav-menu(
     :router='true'
-    mode='horizontal'
+    :mode='mode'
     :default-active='$route.path'
     menu-trigger='hover'
+    text-color='#74828f'
+    active-text-color='#409EFF'
     :style='{float: align}'
+    :class='mode'
   )
     template(v-for='item in routes', v-if='!(item.meta && item.meta.hide) && item.children')
       menu-item(v-if='item.children.length===1 && !item.children[0].children', :key='item.children[0].name', :item='item')
@@ -27,6 +30,10 @@ export default {
         return ['left', 'right', 'none'].indexOf(val) != -1
       },
       default: 'none'
+    },
+    mode: {
+      require: false,
+      default: 'horizontal'
     }
   },
   components: {

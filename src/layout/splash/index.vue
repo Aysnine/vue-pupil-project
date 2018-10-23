@@ -1,10 +1,6 @@
 <template lang="pug">
-  el-container
+  el-container.container
     el-header.header
-      //- // ! 隐藏 logo
-      //- transition(name='el-fade-in-linear')
-      //-   router-link(v-if='$route.path != "/welcome"', to='/')
-      //-     img.logo(src='@/assets/logo-text.png')
       router-link(to='/')
         img.logo(src='@/assets/logo-text.png')
       pure-nav-menu(:routes='routes', align='right')
@@ -14,6 +10,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import routes from '@/router/modules/splash'
 
 export default {
@@ -21,16 +18,23 @@ export default {
     return {
       routes
     }
+  },
+  computed: {
+    ...mapGetters(['isLogin'])
+  },
+  watch: {
+    isLogin(val) {
+      this.routes.find(i => i.redirect == 'login').meta.hide = val == true
+      this.routes.find(i => i.redirect == '/to/admin').meta.hide = val == false
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.main
-  padding 0
-  width 100%
+.container
   position relative
-  overflow hidden
+  height 100vh
 .header
   line-height 60px
   width 100%
@@ -40,4 +44,7 @@ export default {
     height 100%
   @media (max-width: 768px)
     padding 0
+.main
+  relative
+  padding 0
 </style>

@@ -50,17 +50,17 @@ service.interceptors.response.use(
   res => {
     log(res.request, res)
     pop()
+
     // ! custom error type
-    // if (res.data.code !== undefined) {
-    //   if (res.data.code !== 0) {
-    //     return Promise.reject(res.data.msg)
-    //   } else {
-    //     return res.data
-    //   }
-    // } else {
-    //   return res.data
-    // }
-    return res.data
+    if (res.data.code !== undefined) {
+      if (res.data.code !== 0) {
+        return Promise.reject(res.data)
+      } else {
+        return res.data
+      }
+    } else {
+      return res.data
+    }
   },
   err => {
     log(err.request, err.response)

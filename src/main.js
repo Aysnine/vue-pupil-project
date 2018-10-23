@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import '@/permission'
+
 import 'modern-normalize/modern-normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/style/index.styl'
