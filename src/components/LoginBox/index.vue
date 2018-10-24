@@ -11,7 +11,7 @@
       el-form-item(prop='identify')
         el-row(:gutter='24')
           el-col(:span='12')
-            identify-code(ref='identify', clickable, :backgroundColorMin='240', :contentWidth='152', :contentHeight='40')
+            identify-code.identify-box(ref='identify', clickable, :backgroundColorMin='240', :contentWidth='152', :contentHeight='40 - 2')
           el-col(:span='12')
             el-input(type='text' v-model='form.identify', autocomplete='off', placeholder='请输入图片内容')
       el-form-item
@@ -121,4 +121,7 @@ export default {
       display inline-block
       letter-spacing 1.5em
       text-indent 1.5em
+  .identify-box
+    border 1px solid #dcdfe6
+    border-radius 4px
 </style>

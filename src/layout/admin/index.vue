@@ -4,11 +4,9 @@
       div(style='float: left')
         router-link(to='/')
           img(height='60', src='@/assets/logo-text.png')
-      //- pure-nav-menu(:routes='routes', align='left')
-      el-button(type='text')
-        | Logout
+      el-button(type='text', @click='handleLogout')
+        | 退出登陆
         i.el-icon-arrow-right.el-icon--right
-
     el-container
       el-aside.aside(width='240px')
         el-scrollbar(:native="true")
@@ -25,6 +23,11 @@ export default {
   data() {
     return {
       routes
+    }
+  },
+  methods: {
+    handleLogout() {
+      // ...
     }
   }
 }

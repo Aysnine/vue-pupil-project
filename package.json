@@ -9,15 +9,23 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "clipboard-polyfill": "^2.6.0",
     "element-ui": "^2.4.8",
+    "file-saver": "^2.0.0-rc.4",
+    "js-cookie": "^2.2.0",
+    "jszip": "^3.1.5",
+    "jszip-utils": "^0.0.2",
     "lowdb": "^1.0.0",
     "modern-normalize": "^0.5.0",
+    "moment": "^2.22.2",
     "nib": "^1.1.2",
     "nprogress": "^0.2.0",
+    "papaparse": "^4.6.1",
     "qs": "^6.5.2",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "xlsx": "^0.14.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.5",
