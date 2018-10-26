@@ -11,7 +11,14 @@
       el-form-item(prop='identify')
         el-row(:gutter='24')
           el-col(:span='12')
-            identify-code.identify-box(ref='identify', clickable, :backgroundColorMin='240', :contentWidth='152', :contentHeight='40 - 2')
+            identify-code.identify-box(
+              ref='identify'
+              clickable
+              :backgroundColorMin='240'
+              :contentWidth='152'
+              :contentHeight='40 - 2'
+              title='点击刷新验证码'
+            )
           el-col(:span='12')
             el-input(type='text' v-model='form.identify', autocomplete='off', placeholder='请输入图片内容')
       el-form-item
@@ -87,12 +94,12 @@ export default {
       this.$refs['form'].validate(valid => {
         if (valid) {
           this.$store
-            .dispatch('login', {
+            .dispatch('app/login', {
               account: this.form.account,
               pass: this.form.pass
             })
-            .then(res => {
-              this.$message.success(res.msg || 'emmm...')
+            .then(({ msg }) => {
+              this.$message.success(msg)
               this.$router.push('/admin/dash')
             })
             .catch(err => {
@@ -124,4 +131,5 @@ export default {
   .identify-box
     border 1px solid #dcdfe6
     border-radius 4px
+    cursor pointer
 </style>

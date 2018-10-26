@@ -1,22 +1,58 @@
-import { userLogin } from '@/api/app'
+import { userLogin, userLogout, userInfo } from '@/api/app'
+import Plugin from '@/plugin'
+const { $MyCookie } = Plugin
 
 export default {
+  namespaced: true,
   state: {
-    isLogin: false
+    user: null
   },
   mutations: {
-    SET_IS_LOGIN(state, val) {
-      state.isLogin = val
+    SET_USER(state, val) {
+      state.user = val
     }
   },
   actions: {
-    async login({ commit }, { account, pass }) {
+    async init({ dispatch }) {
       try {
-        let res = await userLogin({ account, pass })
-        commit('SET_IS_LOGIN', true)
+        let token = $MyCookie.get('token')
+        if (token) {
+          let res = await dispatch('profile', token)
+          return res
+        }
+      } catch (err) {
+        throw err
+      }
+    },
+    async profile({ commit }, token) {
+      try {
+        let res = await userInfo(token)
+        let { data } = res
+        commit('SET_USER', data)
         return res
       } catch (err) {
-        throw err // ! must throw if you neet .catch()
+        throw err
+      }
+    },
+    async login({ dispatch }, { account, pass }) {
+      try {
+        let res = await userLogin({ account, pass })
+        let { token } = res
+        $MyCookie.set('token', token)
+        await dispatch('profile', token)
+        return res
+      } catch (err) {
+        throw err
+      }
+    },
+    async logout({ commit }) {
+      try {
+        let res = await userLogout()
+        $MyCookie.remove('token')
+        commit('SET_USER', null)
+        return res
+      } catch (err) {
+        throw err
       }
     }
   }

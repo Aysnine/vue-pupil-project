@@ -9,6 +9,21 @@ export const userLogin = ({ account, pass }) => {
   })
 }
 
+export const userLogout = () => {
+  return request({
+    method: 'post',
+    url: '/user/logout'
+  })
+}
+
+export const userInfo = token => {
+  return request({
+    method: 'post',
+    url: '/user/profile',
+    data: qs.stringify({ token })
+  })
+}
+
 // * Post with form data
 // export const PostSomething = ({ account, password }) => {
 //   return request({

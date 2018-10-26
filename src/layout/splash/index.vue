@@ -14,18 +14,31 @@ import { mapGetters } from 'vuex'
 import routes from '@/router/modules/splash'
 
 export default {
+  mounted() {
+    this.updateNav()
+  },
   data() {
     return {
       routes
     }
   },
   computed: {
-    ...mapGetters(['isLogin'])
+    ...mapGetters(['user'])
   },
   watch: {
-    isLogin(val) {
-      this.routes.find(i => i.redirect == 'login').meta.hide = val == true
-      this.routes.find(i => i.redirect == '/to/admin').meta.hide = val == false
+    user() {
+      this.updateNav()
+    }
+  },
+  methods: {
+    updateNav() {
+      let val = this.user
+      this.routes.find(i => i.redirect == 'login').meta.hide = val
+        ? true
+        : false
+      this.routes.find(i => i.redirect == '/to/admin').meta.hide = val
+        ? false
+        : true
     }
   }
 }

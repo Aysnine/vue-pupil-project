@@ -1,19 +1,29 @@
-import Moment from 'moment'
-import Clipboard from '@/lib/clipboard'
-import MyExport from '@/lib/my-export'
-import MyCookie from '@/lib/my-cookie'
-import MyImport from '@/lib/my-import'
-import PrettyLog from '@/lib/pretty-log'
-import ZipExport from '@/lib/zip-export'
+import $Moment from 'moment'
+import $Clipboard from '@/lib/clipboard'
+import $MyExport from '@/lib/my-export'
+import $MyCookie from '@/lib/my-cookie'
+import $MyImport from '@/lib/my-import'
+import $PrettyLog from '@/lib/pretty-log'
+import $ZipExport from '@/lib/zip-export'
 
 export default {
+  // for javascript module
+  $Moment,
+  $Clipboard,
+  $MyExport,
+  $MyCookie: $MyCookie('vue-pupil-project', '0.0.1'),
+  $MyImport,
+  $PrettyLog,
+  $ZipExport,
+
+  // for vue component
   install(Vue) {
-    Vue.prototype.$mt = Moment
-    Vue.prototype.$cp = Clipboard
-    Vue.prototype.$cookie = MyCookie
-    Vue.prototype.$export = MyExport
-    Vue.prototype.$import = MyImport
-    Vue.prototype.$log = PrettyLog
-    Vue.prototype.$zip = ZipExport
+    Vue.prototype.$Moment = this.$Moment
+    Vue.prototype.$Clipboard = this.$Clipboard
+    Vue.prototype.$MyExport = this.$MyExport
+    Vue.prototype.$MyCookie = this.$MyCookie
+    Vue.prototype.$MyImport = this.$MyImport
+    Vue.prototype.$PrettyLog = this.$PrettyLog
+    Vue.prototype.$ZipExport = this.$ZipExport
   }
 }

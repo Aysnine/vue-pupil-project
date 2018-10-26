@@ -27,7 +27,15 @@ export default {
   },
   methods: {
     handleLogout() {
-      // ...
+      this.$store
+        .dispatch('app/logout')
+        .then(({ msg }) => {
+          this.$message.success(msg)
+          this.$router.push('/login')
+        })
+        .catch(err => {
+          this.$message.error(err.msg)
+        })
     }
   }
 }
