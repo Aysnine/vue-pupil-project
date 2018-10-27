@@ -7,7 +7,8 @@ export default [
       {
         path: 'dash',
         name: 'Dashboard',
-        meta: { title: '仪表盘' }
+        meta: { title: '仪表盘' },
+        component: () => import('@/pages/admin/dash')
       }
     ]
   },

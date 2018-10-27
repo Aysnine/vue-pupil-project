@@ -16,9 +16,11 @@ if (process.env.NODE_ENV != 'production') {
 
 import locale from 'element-ui/lib/locale/lang/zh-CN'
 import ElementUI from 'element-ui'
+import VCharts from 'v-charts'
 import Plugins from '@/plugin.js'
 
 Vue.use(ElementUI, { size: 'normal', locale })
+Vue.use(VCharts)
 Vue.use(Plugins)
 
 Vue.config.productionTip = false

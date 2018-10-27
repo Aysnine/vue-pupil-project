@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "clipboard-polyfill": "^2.6.0",
+    "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.8",
     "file-saver": "^2.0.0-rc.4",
     "js-cookie": "^2.2.0",
@@ -22,6 +23,7 @@
     "nprogress": "^0.2.0",
     "papaparse": "^4.6.1",
     "qs": "^6.5.2",
+    "v-charts": "^1.18.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

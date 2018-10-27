@@ -4,14 +4,15 @@
       div(style='float: left')
         router-link(to='/')
           img(height='60', src='@/assets/logo-text.png')
-      el-button(type='text', @click='handleLogout')
+      el-button(size='small', icon='el-icon-search', round) 功能索引
+      el-button(size='small', round, @click='handleLogout')
         | 退出登陆
         i.el-icon-arrow-right.el-icon--right
     el-container
       el-aside.aside(width='240px')
         el-scrollbar(:native="true")
           pure-nav-menu(:routes='routes', mode='vertical', style="height: calc(100vh - 60px); position: relative; border: none")
-      el-main(style='height: calc(100vh - 60px)')
+      el-main(style='height: calc(100vh - 60px); background-color: #f8f9ff')
         transition(name="fade-transform" mode="out-in")
           router-view
 </template>
