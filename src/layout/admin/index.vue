@@ -4,7 +4,7 @@
       div(style='float: left')
         router-link(to='/')
           img(height='60', src='@/assets/logo-text.png')
-      el-button(size='small', icon='el-icon-search', round) 功能索引
+      el-button(size='small', icon='el-icon-search', round, @click='handleFuncSearch') 功能索引
       el-button(size='small', round, @click='handleLogout')
         | 退出登陆
         i.el-icon-arrow-right.el-icon--right
@@ -12,18 +12,22 @@
       el-aside.aside(width='240px')
         el-scrollbar(:native="true")
           pure-nav-menu(:routes='routes', mode='vertical', style="height: calc(100vh - 60px); position: relative; border: none")
-      el-main(style='height: calc(100vh - 60px); background-color: #f8f9ff')
-        transition(name="fade-transform" mode="out-in")
+      el-main(style='position: relative;height: calc(100vh - 60px); background-color: #f8f9ff')
+        transition(v-if='inSearch', name="fade-transform" mode="out-in")
+          func-search(ref='search', @close='onFuncSearchClose')
+        transition(v-else, name="fade-transform" mode="out-in")
           router-view
 </template>
 
 <script>
+import FuncSearch from './components/FuncSearch'
 import routes from '@/router/modules/admin'
 
 export default {
   data() {
     return {
-      routes
+      routes,
+      inSearch: false
     }
   },
   methods: {
@@ -37,7 +41,16 @@ export default {
         .catch(err => {
           this.$message.error(err.msg)
         })
+    },
+    handleFuncSearch() {
+      this.inSearch = !this.inSearch
+    },
+    onFuncSearchClose(val) {
+      this.inSearch = false
     }
+  },
+  components: {
+    FuncSearch
   }
 }
 </script>
