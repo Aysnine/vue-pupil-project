@@ -11,7 +11,7 @@
             block
         .clear
 
-  .page-wrap(style='padding-left: 20px; padding-right: 20px')
+  .page-wrap
 
     .area.quick-data
       .area-title
@@ -114,7 +114,7 @@ export default {
         columns: ['日期', '访问用户'],
         rows: [
           { 日期: '1/1', 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
-          { 日期: '1/2', 访问用户: 3530, 下单用户: 3230, 下单率: 0.26 },
+          { 日期: '1/2', 访问用户: 1700, 下单用户: 3230, 下单率: 0.26 },
           { 日期: '1/3', 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
           { 日期: '1/4', 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
           { 日期: '1/5', 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
@@ -150,6 +150,10 @@ export default {
 
 
 <style lang="stylus">
+.page-wrap
+  padding-left 20px
+  padding-right 20px
+  min-width 1260px
 .grid-row
   margin-bottom 20px
   .grid-col
