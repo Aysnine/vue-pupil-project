@@ -148,7 +148,6 @@ export default {
 }
 </script>
 
-
 <style lang="stylus">
 .page-wrap
   padding-left 20px
@@ -162,12 +161,6 @@ export default {
     border-radius 4px
   &:last-child
     margin-bottom 0
-
-.bg-purple
-  background #fff
-  // padding 10px
-  box-shadow 0px 7px 50px 0px #7face23b
-  border 1px solid #eff3ff
 
 .grid-content
   border-radius 4px

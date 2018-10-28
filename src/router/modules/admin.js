@@ -13,10 +13,10 @@ export default [
     ]
   },
   {
-    path: '/admin/table/index',
+    path: '/admin/table',
     meta: { title: '数据表格' },
     component: () => import('@/layout/admin'),
-    redirect: '/admin/users/index',
+    redirect: '/admin/table/index',
     children: [
       {
         path: 'index',
