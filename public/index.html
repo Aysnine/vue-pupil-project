@@ -11,7 +11,83 @@
     <noscript>
       <strong>We're sorry but vue-pupil-project doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <div class="skeletal">
+        <div class="line"></div>
+        <p style="text-align: center; color: #999">加载中...</p>
+        <div class="item">
+          <div class="block"></div>
+          <div class="block-with">
+            <div class="inline" style="width: 95%;"></div>
+            <div class="inline" style="width: 70%;"></div>
+            <div class="inline" style="width: 85%;"></div>
+            <div class="inline" style="width: 85%;"></div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="block"></div>
+          <div class="block-with">
+            <div class="inline" style="width: 95%;"></div>
+            <div class="inline" style="width: 70%;"></div>
+            <div class="inline" style="width: 85%;"></div>
+            <div class="inline" style="width: 85%;"></div>
+          </div>
+        </div>
+          <div class="item">
+            <div class="block"></div>
+            <div class="block-with">
+              <div class="inline" style="width: 95%;"></div>
+              <div class="inline" style="width: 70%;"></div>
+              <div class="inline" style="width: 85%;"></div>
+              <div class="inline" style="width: 85%;"></div>
+            </div>
+          </div>
+      </div>
+      <style type="text/css">
+        .skeletal {
+          position: relative;
+          margin: 20px auto;
+          max-width: 512px;
+          height: 120px;
+        }
+        .line, .item {
+          position: relative;
+          padding: 10px;
+          border-radius: 5px;
+          margin: 20px;
+        }
+        .line {
+          padding: 20px;
+          color: #666;
+          text-align: center;
+        }
+        .block {
+          display: inline-block;
+          padding: 40px 0;
+          width: 80px;
+          border-radius: 5px;
+        }
+        .block-with {
+          display: inline-block;
+          padding: 0 10px;
+          width: calc(100% - 140px);
+        }
+        .inline {
+          display: inline-block;
+          padding: 5px;
+          border-radius: 3px;
+        }
+        .line, .block, .inline {
+          background: #eee;
+          animation: blingbling 2s infinite;
+        }
+        @keyframes blingbling {
+          0% { background: #eee }
+          50% { background: #ddd }
+          100% { background: #eee }
+        }
+      </style>
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>
