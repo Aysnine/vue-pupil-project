@@ -10,7 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/style/index.styl'
 import '@/components'
 
-if (process.env.NODE_ENV != 'production') {
+if (process.env.VUE_APP_PREVIEW) {
   require('@/mock/register')
 }
 
@@ -24,7 +24,7 @@ Vue.use(VCharts)
 Vue.use(Plugins)
 
 Vue.config.productionTip = false
-Vue.prototype.$env = process.env.NODE_ENV
+Vue.prototype.$env__is_preview = process.env.VUE_APP_PREVIEW==='on'
 
 new Vue({
   router,

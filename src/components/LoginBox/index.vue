@@ -35,7 +35,7 @@ export default {
   },
   mounted() {
     // * for preview
-    if (this.$env === 'development') {
+    if (this.$env__is_preview) {
       this.form.account = 'admin'
       this.form.pass = 'admin'
       this.form.identify = this.$refs['identify'].identifyCode
