@@ -24,7 +24,7 @@ Vue.use(VCharts)
 Vue.use(Plugins)
 
 Vue.config.productionTip = false
-Vue.prototype.$env__is_preview = process.env.VUE_APP_PREVIEW==='on'
+Vue.prototype.$env__is_preview = process.env.VUE_APP_PREVIEW === 'on'
 
 new Vue({
   router,

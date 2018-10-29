@@ -11,7 +11,10 @@ export default {
   $Moment,
   $Clipboard,
   $MyExport,
-  $MyCookie: $MyCookie(process.env.VUE_ADD_MAIN_COOKIE_DOMAIN || 'vue-pupil-project', process.env.VUE_ADD_MAIN_COOKIE_VERSION || '0.0.1'),
+  $MyCookie: $MyCookie(
+    process.env.VUE_ADD_MAIN_COOKIE_DOMAIN || 'vue-pupil-project',
+    process.env.VUE_ADD_MAIN_COOKIE_VERSION || '0.0.1'
+  ),
   $MyImport,
   $PrettyLog,
   $ZipExport,
