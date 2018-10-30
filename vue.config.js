@@ -1,4 +1,5 @@
 module.exports = {
+  baseUrl: './', // 相对路径
   productionSourceMap: false, // ! 避免 build 后在浏览器控制台 Resource 中暴露源码
   css: {
     loaderOptions: {
