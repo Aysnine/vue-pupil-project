@@ -3,7 +3,7 @@
   MockSuit：for better experience of the Mock
 
   author: https://github.com/Aysnine
-  update: 2018-10-14 16:37:46
+  update: 2018-10-30 09:55:48
 
   usage:
 
@@ -41,6 +41,7 @@
         // 在 Mock 文档中会有的对象，直接用就是了：Random
         // ! 在函数处理里用 Mock.mock( ... ) 加模版去生成列表很坑爹，这里提供了 E 来辅助生成
         // ! 需配合解构使用，如 ...E('data|10', { name: '@CNAME' } ) 得到一个 data 属性，值为 10 个对象
+        // ! 当然 E 也很坑爹，这里还提供了 R 直接生成数组
         handle({ method, url, params, body, Mock, Random, E }) {
           return {
             code: 0,
@@ -49,6 +50,9 @@
               'id|+1': 10000,
               name: '@CNAME',
               uid: Random.natural()
+            }),
+            friends: R(10, {
+              name: '@cname'
             })
           }
         }
@@ -70,12 +74,18 @@ Mock.setup({ timeout: '200-300' })
 
 /* 扩展 */
 
+const E = (prop, template) => {
+  let obj = {}
+  obj[prop] = [template]
+  return Mock.mock(obj)
+}
+const R = (num, itemTemplate) => {
+  return E('data' + '|' + num, itemTemplate).data
+}
+
 const CustomExtends = {
-  E(prop, template) {
-    let obj = {}
-    obj[prop] = [template]
-    return Mock.mock(obj)
-  },
+  E,
+  R,
   Mock,
   Random: Mock.Random
 }
