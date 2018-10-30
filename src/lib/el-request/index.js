@@ -4,8 +4,8 @@ import axios from 'axios'
 import log from './sao-log.js'
 
 const service = axios.create({
-  timeout: 1000 * 5,
-  // withCredentials: true
+  baseURL: process.env.VUE_APP_API,
+  timeout: 1000 * 5
 })
 
 const smoothness = 600
