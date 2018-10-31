@@ -2,7 +2,7 @@
   .notfound-wrap
     p.title 404
     p.desc 页面不存在
-    img.fun(src='/images/fun/0')
+    img.fun(src='@/assets/fun/0.png')
     p.desc
       router-link(to='/')
         el-button(type='primary', round, icon='el-icon-location-outline') 返回首页
