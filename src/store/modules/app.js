@@ -1,6 +1,6 @@
 import { userLogin, userLogout, userInfo } from '@/api/app'
 import Plugin from '@/plugin'
-const { $MyCookie } = Plugin
+const { $cookie } = Plugin
 
 export default {
   namespaced: true,
@@ -15,7 +15,7 @@ export default {
   actions: {
     async init({ dispatch }) {
       try {
-        let token = $MyCookie.get('token')
+        let token = $cookie.get('token')
         if (token) {
           let res = await dispatch('profile', token)
           return res
@@ -38,7 +38,7 @@ export default {
       try {
         let res = await userLogin({ account, pass })
         let { token } = res
-        $MyCookie.set('token', token)
+        $cookie.set('token', token)
         await dispatch('profile', token)
         return res
       } catch (err) {
@@ -48,7 +48,7 @@ export default {
     async logout({ commit }) {
       try {
         let res = await userLogout()
-        $MyCookie.remove('token')
+        $cookie.remove('token')
         commit('SET_USER', null)
         return res
       } catch (err) {

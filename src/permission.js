@@ -3,13 +3,13 @@ import { Message } from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import Plugin from '@/plugin'
-const { $MyCookie } = Plugin
+const { $cookie } = Plugin
 
 NProgress.configure({ showSpinner: false })
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  let token = $MyCookie.get('token')
+  let token = $cookie.get('token')
   if (/^(\/login)/.test(to.path) && token) {
     next('/404')
     NProgress.done()
