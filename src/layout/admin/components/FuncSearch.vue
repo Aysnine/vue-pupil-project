@@ -2,13 +2,7 @@
   .in-search-wrap
     .in-search-shadow(@click='handleInSearchShadow')
     .in-search-content
-      el-input.input(
-        ref='input'
-        v-model='searchText'
-        placeholder='请输入内容'
-        prefix-icon="el-icon-search"
-        clearable
-      )
+      el-input.input(ref='input', v-model='searchText', placeholder='请输入内容', prefix-icon='el-icon-search', clearable)
         el-button(slot='append', icon='el-icon-close', @click='handleInSearchShadow') 取消
       .results.bg-purple(@click='handleInSearchShadow')
         template(v-if='results.length')

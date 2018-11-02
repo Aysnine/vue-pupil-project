@@ -1,7 +1,7 @@
 <template lang="pug">
   el-container
     el-header.header
-      div(style='float: left')
+      .left-side
         router-link(to='/')
           img(height='60', src='@/assets/logo-text.png')
       el-button(size='small', icon='el-icon-search', round, @click='handleFuncSearch') 功能索引
@@ -10,12 +10,12 @@
         i.el-icon-arrow-right.el-icon--right
     el-container
       el-aside.aside(width='240px')
-        el-scrollbar(:native="true")
-          pure-nav-menu(:routes='routes', mode='vertical', style="height: calc(100vh - 60px); position: relative; border: none")
-      el-main(style='position: relative;height: calc(100vh - 60px); background-color: #f8f9ff')
-        transition(v-if='inSearch', name="fade-transform" mode="out-in")
+        el-scrollbar(:native='true')
+          pure-nav-menu.nav-menu(:routes='routes', mode='vertical')
+      el-main.main
+        transition(v-if='inSearch', name='fade-transform' mode='out-in')
           func-search(ref='search', @close='onFuncSearchClose')
-        transition(v-else, name="fade-transform" mode="out-in")
+        transition(v-else, name='fade-transform' mode='out-in')
           router-view
 </template>
 
@@ -63,6 +63,8 @@ export default {
   text-align right
   color #333
   background-color #fff
+  .left-side
+    float left
   &:after
     content ''
     absolute left bottom
@@ -72,6 +74,10 @@ export default {
     z-index 1
 .aside
   position relative
+  .nav-menu
+    height calc(100vh - 60px)
+    position relative
+    border none
   &:after
     content: ''
     absolute top right bottom
@@ -79,4 +85,10 @@ export default {
     height 100%
     background-color #e2e5ef
     z-index 1
+.main
+  position relative
+  height calc(100vh - 60px)
+  background-color #f8f9ff
+  padding 0
+  margin 0
 </style>
