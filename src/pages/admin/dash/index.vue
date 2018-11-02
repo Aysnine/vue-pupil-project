@@ -15,13 +15,13 @@
                   span
                     block
                 .clear
-          +item('文章数量', '1234 篇')
+          +item('文章数量', '{{ summary.total }} 篇')
             i.el-icon-edit
-          +item('浏览总量', '2354 次')
+          +item('浏览总量', '{{ summary.views }} 次')
             i.el-icon-view
-          +item('分享次数', '12312 次')
+          +item('分享次数', '{{ summary.share }} 次')
             i.el-icon-share
-          +item('消息通知', '23 条')
+          +item('消息通知', '{{ summary.msgs }} 条')
             i.el-icon-message
     el-row
       el-col(:span='14')
@@ -36,19 +36,21 @@
             el-row.header(:gutter='10')
               el-col(:span='6')
                 span.text
-                  | 2 个目标 
-                  span.finished-text 完成
-                  | ，共 10 项
+                  | {{ taskCompleteNumber }} 个目标 
+                  span.finished-text 已完成
+                  | ，共 {{ taskTotalNumber }} 项
               el-col(:span='8')
-                el-progress(:percentage='20', color='#67c23a', style='display: inline')
-              el-col.col-date(:span='10')
-                el-date-picker(type='date', size='small', placeholder='选择日期')
-            el-table.table-no-border(:data='tableData', style='width: 100%', :show-header='false')
+                el-progress(:percentage='~~(taskCompleteNumber/taskTotalNumber*100)', color='#67c23a', style='display: inline')
+              el-col.right-side(:span='10')
+                el-button(plain, size='small')
+                  | 添加 
+                  i.el-icon-d-arrow-right
+            el-table.table-no-border(:data='tasks', style='width: 100%', :show-header='false')
               el-table-column
                 template(slot-scope='scope')
                   .item
-                    .main-text 编写仪表盘界面
-                    .info-text 已完成 - 12个小时的时间 - 3 个问题
+                    .main-text {{ scope.row.content }}
+                    .info-text {{ scope.row.completed ? '已完成' : '未完成' }}  - {{ scope.row.interval }}
               el-table-column(width='160')
                 template(slot-scope='scope')
                   .operate
@@ -57,104 +59,39 @@
       el-col(:span='10')
         .area
           .area-title
-            span 活跃度
+            span 访问统计
             .area-right-side
               el-button(plain, size='small')
                 | 查看全部 
                 i.el-icon-d-arrow-right
-          .area-comtent.bg-purple
-            ve-line(
-              :colors='colors'
-              :data='chartData'
-              :extend='chartExtend'
-              :grid='grid'
-              :legend-visible='false'
-              :settings='chartSettings'
-              :xAxis='xAxis'
-              :yAxis='yAxis'
-              height='335px'
-            )
+          .area-content.bg-purple
+            pure-line-chart(:stack='stack', :data='vistor', :labelMap='labelMap', height='335px')
 </template>
 
 <script>
-import VeLine from 'v-charts/lib/line.common'
+import { mapGetters } from 'vuex'
+import PureLineChart from '@/components/extend/PureLineChart'
 
 export default {
+  mounted() {
+    this.$store.dispatch('admin/dash/init')
+  },
   data() {
-    this.chartSettings = {
-      stack: { 用户: ['访问用户', '下单用户'] },
-      area: true
-    }
-    this.grid = {
-      top: 30,
-      bottom: 30,
-      left: 30,
-      right: 1
-    }
-    this.xAxis = [
-      {
-        type: 'category',
-        boundaryGap: false
-      }
-    ]
-    this.yAxis = [
-      {
-        splitLine: {
-          lineStyle: {
-            color: '#e7edff'
-          }
-        }
-      }
-    ]
-    let colors = ['#7297ff']
-    this.colors = colors
-    this.chartExtend = {
-      series: {
-        areaStyle: {
-          normal: {
-            color: '#7297ff33'
-          }
-        }
-      }
-    }
-    return {
-      chartData: {
-        columns: ['日期', '访问用户'],
-        rows: [
-          { 日期: '1/1', 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 },
-          { 日期: '1/2', 访问用户: 1700, 下单用户: 3230, 下单率: 0.26 },
-          { 日期: '1/3', 访问用户: 2923, 下单用户: 2623, 下单率: 0.76 },
-          { 日期: '1/4', 访问用户: 1723, 下单用户: 1423, 下单率: 0.49 },
-          { 日期: '1/5', 访问用户: 3792, 下单用户: 3492, 下单率: 0.323 },
-          { 日期: '1/6', 访问用户: 4593, 下单用户: 4293, 下单率: 0.78 }
-        ]
-      },
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }
-      ]
-    }
+    this.stack = { 用户: ['访问用户', '下单用户'] }
+    this.labelMap = { date: '日期', times: '访问量' }
+    return {}
+  },
+  computed: {
+    ...mapGetters('admin/dash', [
+      'summary',
+      'tasks',
+      'taskTotalNumber',
+      'taskCompleteNumber',
+      'vistor'
+    ])
   },
   components: {
-    VeLine
+    PureLineChart
   }
 }
 </script>
@@ -211,7 +148,7 @@ export default {
     padding-left 20px
     padding-right 20px
     border-bottom 1px solid #eff3ff
-    .col-date
+    .right-side
       text-align right
     .finished-text
       color #67c23a
