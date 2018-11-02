@@ -3,9 +3,13 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 
-if (process.env.VUE_APP_PREVIEW=='on') {
+if (process.env.VUE_APP_PREVIEW == 'on') {
   require('@/mock/register')
 }
+
+import 'modern-normalize/modern-normalize.css'
+import 'element-ui/lib/theme-chalk/index.css'
+import '@/style/index.styl'
 
 import locale from 'element-ui/lib/locale/lang/zh-CN'
 import ElementUI from 'element-ui'
@@ -13,10 +17,6 @@ import Plugins from '@/plugin.js'
 
 import '@/permission'
 import '@/components/auto'
-
-import 'modern-normalize/modern-normalize.css'
-import 'element-ui/lib/theme-chalk/index.css'
-import '@/style/index.styl'
 
 Vue.use(ElementUI, { size: 'normal', locale })
 Vue.use(Plugins)
