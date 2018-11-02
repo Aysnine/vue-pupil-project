@@ -45,7 +45,7 @@ export default {
     handleFuncSearch() {
       this.inSearch = !this.inSearch
     },
-    onFuncSearchClose(val) {
+    onFuncSearchClose() {
       this.inSearch = false
     }
   },

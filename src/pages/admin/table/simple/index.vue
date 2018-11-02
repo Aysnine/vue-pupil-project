@@ -1,84 +1,35 @@
 <template lang="pug">
   .page-wrap
-    .area.quick-data
-      .area-title
-        span 数据速览
-      .area-content
-        el-row.grid-row(:gutter='35')
-          mixin item(title, main)
-            el-col.grid-col(:span='6')
-              .grid-content.bg-purple
-                .text
-                  span.title= title
-                  span.main= main
-                .icon
-                  span
-                    block
-                .clear
-          +item('文章数量', '1234 篇')
-            i.el-icon-edit
-          +item('浏览总量', '2354 次')
-            i.el-icon-view
-          +item('分享次数', '12312 次')
-            i.el-icon-share
-          +item('消息通知', '23 条')
-            i.el-icon-message
     el-row
-      el-col(:span='14')
+      el-col(:span='12')
         .area.todo-list
           .area-title
-            span 任务进度
-            .area-right-side
-              el-button(plain, size='small')
-                | 查看全部 
-                i.el-icon-d-arrow-right
-          .area-content.bg-purple
-            el-row.header(:gutter='10')
-              el-col(:span='6')
-                span.text
-                  | 2 个目标 
-                  span.finished-text 完成
-                  | ，共 10 项
-              el-col(:span='8')
-                el-progress(:percentage='20', color='#67c23a', style='display: inline')
-              el-col.col-date(:span='10')
-                el-date-picker(type='date', size='small', placeholder='选择日期')
-            el-table.table-no-border(:data='tableData', style='width: 100%', :show-header='false')
-              el-table-column
-                template(slot-scope='scope')
-                  .item
-                    .main-text 编写仪表盘界面
-                    .info-text 已完成 - 12个小时的时间 - 3 个问题
+            span 普通表格
+          .area-comtent.bg-purple
+            el-table.table-no-border(:data='tableData.slice(0, 7)', style='width: 100%')
+              el-table-column(fixed='', prop='date', label='日期', width='150')
+              el-table-column(prop='name', label='姓名', width='120')
+              el-table-column(prop='zip', label='邮编')
               el-table-column(width='160')
                 template(slot-scope='scope')
                   .operate
                     el-button(type='primary', plain, icon='el-icon-edit', circle, size='small')
                     el-button(type='primary', plain, icon='el-icon-delete', circle, size='small')
-      el-col(:span='10')
-        .area
+      el-col(:span='12')
+        .area.todo-list
           .area-title
-            span 活跃度
-            .area-right-side
-              el-button(plain, size='small')
-                | 查看全部 
-                i.el-icon-d-arrow-right
+            span 固定高度
           .area-comtent.bg-purple
-            ve-line(
-              :colors='colors'
-              :data='chartData'
-              :extend='chartExtend'
-              :grid='grid'
-              :legend-visible='false'
-              :settings='chartSettings'
-              :xAxis='xAxis'
-              :yAxis='yAxis'
-              height='335px'
-            )
+            el-table.table-no-border(:data='tableData', style='width: 100%', height='440')
+              el-table-column(fixed='', prop='date', label='日期', width='150')
+              el-table-column(prop='name', label='姓名', width='120')
+              el-table-column(prop='province', label='省份', width='120')
+              el-table-column(prop='city', label='市区', width='120')
+              el-table-column(prop='address', label='地址', width='300')
+              el-table-column(prop='zip', label='邮编', width='120')
 </template>
 
 <script>
-import VeLine from 'v-charts/lib/line.common'
-
 export default {
   data() {
     this.chartSettings = {
@@ -131,30 +82,87 @@ export default {
       },
       tableData: [
         {
+          date: '2016-05-03',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        },
+        {
           date: '2016-05-02',
           name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
         },
         {
           date: '2016-05-04',
           name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
         },
         {
           date: '2016-05-01',
           name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
         },
         {
-          date: '2016-05-01',
+          date: '2016-05-08',
           name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-05-06',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-05-07',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-05-07',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-05-07',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-05-07',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
         }
       ]
     }
-  },
-  components: {
-    VeLine
   }
 }
 </script>

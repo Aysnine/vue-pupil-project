@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Message, Loading } from 'element-ui'
+import { Loading } from 'element-ui'
 import axios from 'axios'
 import log from './sao-log.js'
 
@@ -66,7 +66,6 @@ service.interceptors.response.use(
     log(err.request, err.response)
     pop()
     err.msg = `数据异常 (${err.request.statusText} : ${err.request.status})`
-    // Message.error(err.msg)
     return Promise.reject(err)
   }
 )

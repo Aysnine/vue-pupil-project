@@ -2,8 +2,8 @@ import router from '@/router'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import Plugin from '@/plugin'
-const { $cookie } = Plugin
+import Plugins from '@/plugin'
+const { $cookie } = Plugins
 
 NProgress.configure({ showSpinner: false })
 

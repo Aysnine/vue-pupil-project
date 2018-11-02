@@ -1,5 +1,5 @@
 import qs from 'qs'
-import request from '@/lib/el-request'
+import request from '@/lib/main/el-request'
 
 export const userLogin = ({ account, pass }) => {
   return request({

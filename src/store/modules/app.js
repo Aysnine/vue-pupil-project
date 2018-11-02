@@ -1,6 +1,6 @@
 import { userLogin, userLogout, userInfo } from '@/api/app'
-import Plugin from '@/plugin'
-const { $cookie } = Plugin
+import Plugins from '@/plugin'
+const { $cookie } = Plugins
 
 export default {
   namespaced: true,
