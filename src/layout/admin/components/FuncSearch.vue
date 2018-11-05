@@ -97,6 +97,7 @@ export default {
   left 0
   right 0
   bottom 0
+  background #f8f9ff
 .in-search-shadow
   position fixed
   top 0

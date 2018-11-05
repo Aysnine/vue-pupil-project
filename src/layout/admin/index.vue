@@ -13,10 +13,11 @@
         el-scrollbar(:native='true')
           pure-nav-menu.nav-menu(:routes='routes', mode='vertical')
       el-main.main
-        transition(v-if='inSearch', name='fade-transform' mode='out-in')
-          func-search(ref='search', @close='onFuncSearchClose')
-        transition(v-else, name='fade-transform' mode='out-in')
-          router-view
+        transition(name='fade-transform', mode='out-in')
+          keep-alive
+            router-view
+        transition(name='fade-transform' mode='out-in')
+          func-search(v-if='inSearch', ref='search', @close='onFuncSearchClose')
 </template>
 
 <script>
