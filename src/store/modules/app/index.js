@@ -31,6 +31,7 @@ export default {
         commit('SET_USER', data)
         return res
       } catch (err) {
+        $cookie.remove('token')
         throw err
       }
     },
