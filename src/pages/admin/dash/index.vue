@@ -74,7 +74,7 @@ import PureLineChart from '@/components/extend/PureLineChart'
 
 export default {
   mounted() {
-    this.$store.dispatch('admin/dash/init')
+    this.$store.dispatch('admin/dash/fetchDash')
   },
   data() {
     this.stack = { 用户: ['访问用户', '下单用户'] }

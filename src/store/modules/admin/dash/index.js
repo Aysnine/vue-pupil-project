@@ -1,3 +1,5 @@
+import { fetchDash } from '@/api/admin/dash'
+
 export default {
   namespaced: true,
   getters: {
@@ -15,33 +17,30 @@ export default {
       share: 0,
       msgs: 0
     },
-    tasks: [
-      { content: '编写仪表盘界面', completed: 0, interval: '7 h' },
-      { content: '编写仪表盘界面', completed: 0, interval: '7 h' },
-      { content: '编写仪表盘界面', completed: 0, interval: '7 h' },
-      { content: '编写仪表盘界面', completed: 1, interval: '7 h' }
-    ],
+    tasks: [],
     vistor: {
       columns: ['date', 'times'],
-      rows: [
-        { date: '1', times: 1393 },
-        { date: '2', times: 1700 },
-        { date: '3', times: 2923 },
-        { date: '4', times: 1723 },
-        { date: '5', times: 3792 },
-        { date: '6', times: 4593 }
-      ]
+      rows: []
     }
   },
   mutations: {
     SET_SUMMARY(state, val) {
       state.summary = val
+    },
+    SET_TASKS(state, val) {
+      state.tasks = val
+    },
+    SET_VISTOR(state, val) {
+      state.vistor.rows = val
     }
   },
   actions: {
-    async init() {
+    async fetchDash({ commit }) {
       try {
-        // ...
+        let { data } = await fetchDash()
+        commit('SET_SUMMARY', data.summary)
+        commit('SET_TASKS', data.tasks)
+        commit('SET_VISTOR', data.vistor)
       } catch (err) {
         throw err
       }

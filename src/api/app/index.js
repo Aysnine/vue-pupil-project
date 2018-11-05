@@ -23,21 +23,3 @@ export const userInfo = token => {
     data: qs.stringify({ token })
   })
 }
-
-// * Post with form data
-// export const PostSomething = ({ account, password }) => {
-//   return request({
-//     method: 'post',
-//     url: 'PostSomething',
-//     data: qs.stringify({ account, password })
-//   })
-// }
-
-// * Get with params
-// export const PostSomething = ({ account, password }) => {
-//   return request({
-//     method: 'get',
-//     url: 'GetSomething',
-//     params: { account, password }
-//   })
-// }
