@@ -15,7 +15,7 @@
       el-main.main
         transition(name='fade-transform', mode='out-in')
           keep-alive
-            router-view
+            router-view(:class='{"is-hide": inSearch }')
         transition(name='fade-transform' mode='out-in')
           func-search(v-if='inSearch', ref='search', @close='onFuncSearchClose')
 </template>
@@ -92,4 +92,6 @@ export default {
   background-color #f8f9ff
   padding 0
   margin 0
+  .is-hide
+    opacity 0
 </style>
