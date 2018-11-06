@@ -13,13 +13,12 @@ import '@/style/index.styl'
 
 import locale from 'element-ui/lib/locale/lang/zh-CN'
 import ElementUI from 'element-ui'
-import Plugins from '@/plugin.js'
 
+import '@/plugin'
 import '@/permission'
 import '@/components/auto'
 
 Vue.use(ElementUI, { size: 'normal', locale })
-Vue.use(Plugins)
 
 Vue.config.productionTip = false
 Vue.prototype.$env__is_preview = process.env.VUE_APP_PREVIEW === 'on'
