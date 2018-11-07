@@ -6,8 +6,8 @@ import $log from '@/lib/main/$log'
 const plugin = {
   // for javascript module
   $cookie: $cookie(
-    process.env.VUE_ADD_MAIN_COOKIE_DOMAIN || '',
-    process.env.VUE_ADD_MAIN_COOKIE_VERSION || ''
+    process.env.VUE_APP_MAIN_COOKIE_DOMAIN || '',
+    process.env.VUE_APP_MAIN_COOKIE_VERSION || ''
   ),
   $log,
 
