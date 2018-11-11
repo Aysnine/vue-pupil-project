@@ -8,6 +8,9 @@ if (process.env.VUE_APP_PREVIEW == 'on') {
   require('@/mock/register')
 }
 
+/* PWA */
+import './registerServiceWorker'
+
 /* 引入全局的 CSS */
 import 'modern-normalize/modern-normalize.css' // style reset，一定要写在最前
 import 'element-ui/lib/theme-chalk/index.css' // ElementUI 的样式
@@ -15,7 +18,7 @@ import '@/style/index.styl' // 自己的 CSS，for Override，一定要写在最
 
 /* 引入功能性模块 */
 import '@/plugin' // 全局使用的插件，如 log、cookie
-import '@/permission' // 多页的权限逻辑
+import '@/router/witch' // 路由权限
 import '@/components/auto' // 全局使用的组件
 
 /* 完整引入 ElementUI，默认中文，默认尺寸 */
