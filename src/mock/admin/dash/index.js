@@ -19,12 +19,12 @@ export default [
             { content: '编写仪表盘界面', completed: 1, interval: '7 h' }
           ],
           vistor: [
-            { date: '1', times: 1393 },
-            { date: '2', times: 1700 },
-            { date: '3', times: 2923 },
-            { date: '4', times: 1723 },
-            { date: '5', times: 3792 },
-            { date: '6', times: 4593 }
+            { date: '周一', times: 1393 },
+            { date: '周二', times: 1700 },
+            { date: '周三', times: 2923 },
+            { date: '周四', times: 1723 },
+            { date: '周五', times: 3792 },
+            { date: '周六', times: 4593 }
           ]
         }
       }

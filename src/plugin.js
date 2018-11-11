@@ -1,11 +1,13 @@
+import Vue from 'vue'
+
 import $cookie from '@/lib/main/$cookie'
 import $log from '@/lib/main/$log'
 
-export default {
+const plugin = {
   // for javascript module
   $cookie: $cookie(
-    process.env.VUE_ADD_MAIN_COOKIE_DOMAIN || '',
-    process.env.VUE_ADD_MAIN_COOKIE_VERSION || ''
+    process.env.VUE_APP_MAIN_COOKIE_DOMAIN || '',
+    process.env.VUE_APP_MAIN_COOKIE_VERSION || ''
   ),
   $log,
 
@@ -15,3 +17,7 @@ export default {
     Vue.prototype.$log = this.$log
   }
 }
+
+Vue.use(plugin)
+
+export default plugin

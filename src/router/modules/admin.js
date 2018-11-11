@@ -59,6 +59,42 @@ export default [
     ]
   },
   {
+    path: '/admin/role/admin',
+    component: () => import('@/layout/admin'),
+    redirect: '/admin/role/admin/index',
+    children: [
+      {
+        path: 'index',
+        name: 'RoleAdmin',
+        meta: { title: '权限测试 Admin' }
+      }
+    ]
+  },
+  {
+    path: '/admin/role/leader',
+    component: () => import('@/layout/admin'),
+    redirect: '/admin/role/leader/index',
+    children: [
+      {
+        path: 'index',
+        name: 'RoleLeader',
+        meta: { title: '权限测试 Leader' }
+      }
+    ]
+  },
+  {
+    path: '/admin/role/member',
+    component: () => import('@/layout/admin'),
+    redirect: '/admin/role/member/index',
+    children: [
+      {
+        path: 'index',
+        name: 'RoleMember',
+        meta: { title: '权限测试 Member' }
+      }
+    ]
+  },
+  {
     path: '/path/to',
     redirect: '/path/to/404',
     children: [
