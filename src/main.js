@@ -9,7 +9,7 @@ if (process.env.VUE_APP_PREVIEW == 'on') {
 }
 
 /* PWA */
-import './registerServiceWorker'
+import '@/lib/main/pwa/registerServiceWorker'
 
 /* 引入全局的 CSS */
 import 'modern-normalize/modern-normalize.css' // style reset，一定要写在最前
