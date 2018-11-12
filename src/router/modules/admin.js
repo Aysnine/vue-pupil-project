@@ -66,7 +66,7 @@ export default [
       {
         path: 'index',
         name: 'RoleAdmin',
-        meta: { title: '权限测试 Admin' }
+        meta: { title: '权限测试 Admin', role: ['admin'] }
       }
     ]
   },
@@ -78,7 +78,7 @@ export default [
       {
         path: 'index',
         name: 'RoleLeader',
-        meta: { title: '权限测试 Leader' }
+        meta: { title: '权限测试 Leader', role: ['leader'] }
       }
     ]
   },
@@ -90,7 +90,7 @@ export default [
       {
         path: 'index',
         name: 'RoleMember',
-        meta: { title: '权限测试 Member' }
+        meta: { title: '权限测试 Member', role: ['member'] }
       }
     ]
   },

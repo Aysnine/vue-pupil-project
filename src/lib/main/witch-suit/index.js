@@ -14,10 +14,12 @@ export default function(router) {
   router.beforeEach((to, from, next) => {
     config.before({ to, from, next })
     for (let item of config.rules) {
-      let { match, handle } = item
+      let { match, validator, reactor } = item
       if (mm.isMatch(to.path, match)) {
-        let rst = handle({ to, from })
-        if (rst) return next(rst)
+        if (validator({ to, from })) {
+          let rst = reactor({ to, from })
+          if (rst) return next(rst)
+        }
       }
     }
     next()

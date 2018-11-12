@@ -24,8 +24,23 @@
 import FuncSearch from './components/FuncSearch'
 import routes from '@/router/modules/admin'
 
+const R = (f, s) =>
+  s.map(i => (f(i), i.children && i.children.length ? R(f, i.children) : 0, i))
+
+let role = 'admin'
+
 export default {
   data() {
+    // 遍及路由节点，按角色显示不同页面
+    R(i => {
+      if (i.meta && i.meta.role) {
+        if (i.meta.role.indexOf(role) == -1) {
+          i.meta = i.meta || {}
+          i.meta.hide = true
+        }
+      }
+    }, routes)
+
     return {
       routes,
       inSearch: false
