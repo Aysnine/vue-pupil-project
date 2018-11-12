@@ -29,9 +29,10 @@
           .area-title
             span 任务进度
             .area-right-side
-              el-button(plain, size='small')
-                | 查看全部 
-                i.el-icon-d-arrow-right
+              router-link(to='/admin/table')
+                el-button(plain, size='small')
+                  | 查看全部 
+                  i.el-icon-d-arrow-right
           .area-content.bg-purple
             el-row.header(:gutter='10')
               el-col(:span='6')
@@ -57,11 +58,12 @@
       el-col(:span='10')
         .area
           .area-title
-            span 访问统计
+            span 数据统计
             .area-right-side
-              el-button(plain, size='small')
-                | 查看全部 
-                i.el-icon-d-arrow-right
+              router-link(to='/admin/chart')
+                el-button(plain, size='small')
+                  | 查看全部 
+                  i.el-icon-d-arrow-right
           .area-content.bg-purple
             pure-line-chart(:stack='stack', :data='vistor', :labelMap='labelMap', height='335px')
 </template>
