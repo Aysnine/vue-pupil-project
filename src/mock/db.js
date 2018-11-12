@@ -9,28 +9,28 @@ db.defaults({
       account: 'admin',
       nickname: 'admin',
       pass: 'admin',
-      role: ['admin']
+      role: 'admin'
     },
     {
       id: '2',
       account: 'manager',
       nickname: 'manager',
       pass: 'manager',
-      role: ['manager']
+      role: 'manager'
     },
     {
       id: '3',
       account: 'leader',
       nickname: 'leader',
       pass: 'leader',
-      role: ['leader']
+      role: 'leader'
     },
     {
       id: '4',
       account: 'member',
       nickname: 'member',
       pass: 'member',
-      role: ['member']
+      role: 'member'
     }
   ],
   roles: [
