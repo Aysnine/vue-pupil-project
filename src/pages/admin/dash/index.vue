@@ -41,10 +41,8 @@
                   | ，共 {{ taskTotalNumber }} 项
               el-col(:span='8')
                 el-progress(:percentage='~~(taskCompleteNumber/taskTotalNumber*100)', color='#67c23a', style='display: inline')
-              el-col.right-side(:span='10')
-                el-button(plain, size='small')
-                  | 添加 
-                  i.el-icon-d-arrow-right
+              el-col.right-side(:span='10', style='padding-right: 28px;')
+                el-button(type='primary', icon='el-icon-plus', circle, size='small')
             el-table.table-no-border(:data='tasks', style='width: 100%', :show-header='false')
               el-table-column
                 template(slot-scope='scope')
