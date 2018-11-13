@@ -24,9 +24,9 @@ witch.rules([
     }
   },
   {
-    match: '/admin*',
+    match: '/admin/**',
     validator() {
-      return !!$cookie.get('token')
+      return !$cookie.get('token')
     },
     reactor() {
       Message.warning('未登录，请先登录')
@@ -37,7 +37,7 @@ witch.rules([
   /* role control */
 
   {
-    match: '/admin*',
+    match: '/admin/**',
     validator({ to }) {
       let user = store.getters.user
       return (
