@@ -2,99 +2,81 @@
   .page-wrap
     .area.todo-list
       .area-title
-        span 订单管理
+        span 任务列表
       .area-comtent.bg-purple
-        el-row.header
-          el-col(:span='6')
+        el-row.header(:gutter='10')
+          el-col(:span='4')
             span.text
-              | 2 个目标 
-              span.finished-text 完成
-              | ，共 10 项
-          el-col(:span='8')
-            el-progress(:percentage='20', color='#67c23a', style='display: inline')
-          el-col.col-date(:span='10')
-            el-date-picker(type='date', size='small', placeholder='选择日期')
-        el-table(:data='tableData', style='width: 100%')
-          el-table-column(prop='date', label='日期', sortable='', width='180', :filters='[{text: "2016-05-01", value: "2016-05-01"}, {text: "2016-05-02", value: "2016-05-02"}, {text: "2016-05-03", value: "2016-05-03"}, {text: "2016-05-04", value: "2016-05-04"}]', :filter-method='filterHandler')
-          el-table-column(prop='name', label='姓名', width='180')
-          el-table-column(prop='address', label='地址', :formatter='formatter')
-          el-table-column(prop='tag', label='标签', width='100', :filters='[{ text: "家", value: "家" }, { text: "公司", value: "公司" }]', :filter-method='filterTag', filter-placement='bottom-end')
+              | {{ taskCompleteNumber }} 个目标 
+              span.finished-text 已完成
+              | ，共 {{ taskTotalNumber }} 项
+          el-col(:span='4')
+            el-progress(:percentage='~~(taskCompleteNumber/taskTotalNumber*100)', color='#67c23a', style='display: inline')
+              | ，共 {{ taskTotalNumber }} 项
+          el-col(:span='6')
+            el-input(placeholder='搜索任务', size='small', prefix-icon='el-icon-search', clearable, v-model='search')
+          el-col.right-side(:span='10', style='padding-right: 28px;')
+            el-button(type='primary', icon='el-icon-plus', circle, size='small', @click='handleClickAdd')
+        el-table(:data='list', style='width: 100%', max-height='512')
+          el-table-column(label='#', type='index', width='80')
+          el-table-column(label='任务内容', prop='content', width='300')
+          el-table-column(label='任务用时', prop='interval', width='200')
+          el-table-column(label='任务状态', prop='state'
+            :filters='[{ text: "已完成", value: 1 }, { text: "未完成", value: 0 }]'
+            :filter-method='filterTask'
+          )
             template(slot-scope='scope')
-              el-tag(:type='scope.row.tag === "家" ? "primary" : "success"', disable-transitions='') {{scope.row.tag}}
-          el-table-column(prop='name', label='姓名', width='180')
+              el-tag(:type='scope.row.state ? "success" : "primary"', disable-transitions) {{ scope.row.state ? '已完成' : '未完成' }}
+          el-table-column(width='160')
             template(slot-scope='scope')
               .operate
                 el-button(type='primary', plain, icon='el-icon-edit', circle, size='small')
                 el-button(type='primary', plain, icon='el-icon-delete', circle, size='small')
+    add-task-dialog(ref='add-task-dialog')
+    pretty-refresh(@refresh='fetch')
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import AddTaskDialog from './components/AddTaskDialog'
+
 export default {
+  mounted() {
+    this.fetch()
+  },
   data() {
     return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-          tag: '家'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '家'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        }
-      ]
+      search: ''
+    }
+  },
+  computed: {
+    ...mapGetters('admin/task', [
+      'tasks',
+      'taskTotalNumber',
+      'taskCompleteNumber'
+    ]),
+    list() {
+      if (this.tasks)
+        return this.tasks.filter(i => {
+          if (this.search.trim()) {
+            return i.content.toLowerCase().indexOf(this.search) != -1
+          }
+          return i
+        })
+      else return []
     }
   },
   methods: {
-    formatter(row) {
-      return row.address
+    ...mapActions('admin/task', ['fetch']),
+    filterTask(value, row) {
+      return row.state === value
     },
-    filterTag(value, row) {
-      return row.tag === value
-    },
-    filterHandler(value, row, column) {
-      const property = column['property']
-      return row[property] === value
+    handleClickAdd() {
+      this.$refs['add-task-dialog'].show = true
     }
+  },
+  components: {
+    AddTaskDialog
   }
 }
 </script>
@@ -151,18 +133,16 @@ export default {
     padding-left 20px
     padding-right 20px
     border-bottom 1px solid #eff3ff
-    .col-date
+    .right-side
       text-align right
     .finished-text
       color #67c23a
     .text
       font-size .8em
-  .item
-    padding 0 10px
-    .main-text
-      font-size 1em
-    .info-text
-      font-size .75em
+  .done
+    color #67c23a
+  .wait
+    color gray
   .operate
     text-align center
 </style>

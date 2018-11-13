@@ -27,7 +27,7 @@
       el-col(:span='14')
         .area.todo-list
           .area-title
-            span 任务进度
+            span 任务列表
             .area-right-side
               router-link(to='/admin/table')
                 el-button(plain, size='small')
@@ -44,12 +44,13 @@
                 el-progress(:percentage='~~(taskCompleteNumber/taskTotalNumber*100)', color='#67c23a', style='display: inline')
               el-col.right-side(:span='10', style='padding-right: 28px;')
                 el-button(type='primary', icon='el-icon-plus', circle, size='small')
-            el-table.table-no-border(:data='tasks', style='width: 100%', :show-header='false')
+            el-table.table-no-border(:data='tasks.slice(0, 5)', style='width: 100%', :show-header='false')
               el-table-column
                 template(slot-scope='scope')
                   .item
                     .main-text {{ scope.row.content }}
-                    .info-text {{ scope.row.completed ? '已完成' : '未完成' }}  - {{ scope.row.interval }}
+                    .info-text(:class='[scope.row.state ? "done":"wait"]')
+                      | {{ scope.row.state ? '已完成' : '未完成' }}  - {{ scope.row.interval }}
               el-table-column(width='160')
                 template(slot-scope='scope')
                   .operate
@@ -65,16 +66,17 @@
                   | 查看全部 
                   i.el-icon-d-arrow-right
           .area-content.bg-purple
-            pure-line-chart(:stack='stack', :data='vistor', :labelMap='labelMap', height='335px')
+            pure-line-chart(:stack='stack', :data='vistor', :labelMap='labelMap', height='405px')
+    pretty-refresh(@refresh='fetch')
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import PureLineChart from '@/components/extend/PureLineChart'
 
 export default {
   mounted() {
-    this.$store.dispatch('admin/dash/fetchDash')
+    this.fetch()
   },
   data() {
     this.stack = { 用户: ['访问用户', '下单用户'] }
@@ -82,13 +84,16 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters('admin/dash', [
-      'summary',
+    ...mapGetters('admin/dash', ['summary']),
+    ...mapGetters('admin/summary', ['vistor']),
+    ...mapGetters('admin/task', [
       'tasks',
       'taskTotalNumber',
-      'taskCompleteNumber',
-      'vistor'
+      'taskCompleteNumber'
     ])
+  },
+  methods: {
+    ...mapActions('admin/dash', ['fetch'])
   },
   components: {
     PureLineChart
@@ -160,6 +165,10 @@ export default {
       font-size 1em
     .info-text
       font-size .75em
+    .done
+      color #67c23a
+    .wait
+      color gray
   .operate
     text-align center
 </style>

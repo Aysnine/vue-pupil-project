@@ -26,6 +26,7 @@
               .operate
                 el-button(type='primary', plain, icon='el-icon-edit', circle, size='small')
                 el-button(type='primary', plain, icon='el-icon-delete', circle, size='small')
+    pretty-refresh
 </template>
 
 <script>
