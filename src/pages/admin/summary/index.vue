@@ -26,7 +26,7 @@
             span K 线
           .area-content.bg-purple
             pure-kline-chart(height='280px')
-    pretty-refresh
+    pretty-refresh(@refresh='fetch')
 </template>
 
 <script>
