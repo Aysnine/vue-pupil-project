@@ -58,23 +58,23 @@ export default {
       let r = []
       routes.map(i => {
         if (
-          (!(i.meta && i.meta.title) || !i.meta) &&
+          (!(i.meta && i.meta.title && !i.meta.hide) || !i.meta) &&
           i.children &&
           i.children.length
         ) {
           i.children.map(one => {
-            if (one.meta && one.meta.title)
+            if (one.meta && one.meta.title && !one.meta.hide)
               r.push({
                 title: one.meta.title,
                 path: path.join('/', i.path, one.path)
               })
           })
         } else {
-          if (i.meta && i.meta.title) {
+          if (i.meta && i.meta.title && !i.meta.hide) {
             let item = []
             if (i.children && i.children.length)
               i.children.map(one => {
-                if (one.meta && one.meta.title)
+                if (one.meta && one.meta.title && !one.meta.hide)
                   item.push({
                     title: one.meta.title,
                     path: path.join('/', i.path, one.path)
