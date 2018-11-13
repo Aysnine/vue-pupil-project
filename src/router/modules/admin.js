@@ -13,28 +13,28 @@ export default [
     ]
   },
   {
-    path: '/admin/table',
+    path: '/admin/task',
     component: () => import('@/layout/admin'),
-    redirect: '/admin/table/index',
+    redirect: '/admin/task/index',
     children: [
       {
         path: 'index',
-        name: 'DataTable',
+        name: 'Task',
         meta: { title: '数据表格' },
-        component: () => import('@/pages/admin/table')
+        component: () => import('@/pages/admin/task')
       }
     ]
   },
   {
-    path: '/admin/chart',
+    path: '/admin/summary',
     component: () => import('@/layout/admin'),
-    redirect: '/admin/chart/index',
+    redirect: '/admin/summary/index',
     children: [
       {
         path: 'index',
-        name: 'Chart',
+        name: 'Summary',
         meta: { title: '数据图表' },
-        component: () => import('@/pages/admin/chart')
+        component: () => import('@/pages/admin/summary')
       }
     ]
   },
