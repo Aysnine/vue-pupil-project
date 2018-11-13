@@ -1,101 +1,71 @@
 <template lang="pug">
   .page-wrap
-    .area.todo-list
-      .area-title
-        span 订单管理
-      .area-comtent.bg-purple
-        el-row.header
-          el-col(:span='6')
-            span.text
-              | 2 个目标 
-              span.finished-text 完成
-              | ，共 10 项
-          el-col(:span='8')
-            el-progress(:percentage='20', color='#67c23a', style='display: inline')
-          el-col.col-date(:span='10')
-            el-date-picker(type='date', size='small', placeholder='选择日期')
-        el-table(:data='tableData', style='width: 100%')
-          el-table-column(prop='date', label='日期', sortable='', width='180', :filters='[{text: "2016-05-01", value: "2016-05-01"}, {text: "2016-05-02", value: "2016-05-02"}, {text: "2016-05-03", value: "2016-05-03"}, {text: "2016-05-04", value: "2016-05-04"}]', :filter-method='filterHandler')
-          el-table-column(prop='name', label='姓名', width='180')
-          el-table-column(prop='address', label='地址', :formatter='formatter')
-          el-table-column(prop='tag', label='标签', width='100', :filters='[{ text: "家", value: "家" }, { text: "公司", value: "公司" }]', :filter-method='filterTag', filter-placement='bottom-end')
-            template(slot-scope='scope')
-              el-tag(:type='scope.row.tag === "家" ? "primary" : "success"', disable-transitions='') {{scope.row.tag}}
-          el-table-column(prop='name', label='姓名', width='180')
-            template(slot-scope='scope')
-              .operate
-                el-button(type='primary', plain, icon='el-icon-edit', circle, size='small')
-                el-button(type='primary', plain, icon='el-icon-delete', circle, size='small')
+    el-row
+      el-col(:span='8')
+        .area
+          .area-title
+            span 曲线
+          .area-content.bg-purple
+            pure-line-chart(:stack='stack', :data='vistor', :labelMap='labelMap', height='240px')
+      el-col(:span='8')
+        .area
+          .area-title
+            span 水球
+          .area-content.bg-purple
+            pure-boll-chart(height='240px', :percent='0.5')
+      el-col(:span='8')
+        .area
+          .area-title
+            span 环图
+          .area-content.bg-purple
+            pure-ring-chart(:data='vistor', :labelMap='labelMap', height='240px')
+    el-row
+      el-col(:span='24')
+        .area
+          .area-title
+            span K 线
+          .area-content.bg-purple
+            pure-kline-chart(height='280px')
     pretty-refresh
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+import PureLineChart from '@/components/extend/PureLineChart'
+import PureRingChart from '@/components/extend/PureRingChart'
+import PureBollChart from '@/components/extend/PureBollChart'
+import PureKlineChart from '@/components/extend/PureKlineChart'
+import AddTaskDialog from '../task/components/AddTaskDialog'
+import EditTaskDialog from '../task/components/EditTaskDialog'
+
 export default {
+  mounted() {
+    this.fetch()
+  },
   data() {
-    return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-          tag: '家'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '家'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司'
-        }
-      ]
-    }
+    this.stack = { 用户: ['访问用户', '下单用户'] }
+    this.labelMap = { date: '日期', times: '访问量' }
+    return {}
+  },
+  computed: {
+    ...mapGetters('admin/dash', ['summary']),
+    ...mapGetters('admin/summary', ['vistor']),
+    ...mapGetters('admin/task', [
+      'tasks',
+      'taskTotalNumber',
+      'taskCompleteNumber'
+    ])
   },
   methods: {
-    formatter(row) {
-      return row.address
-    },
-    filterTag(value, row) {
-      return row.tag === value
-    },
-    filterHandler(value, row, column) {
-      const property = column['property']
-      return row[property] === value
-    }
+    ...mapActions('admin/summary', ['fetch'])
+  },
+  components: {
+    PureLineChart,
+    PureRingChart,
+    PureBollChart,
+    PureKlineChart,
+    AddTaskDialog,
+    EditTaskDialog
   }
 }
 </script>

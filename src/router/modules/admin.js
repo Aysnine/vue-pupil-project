@@ -46,7 +46,7 @@ export default [
       {
         path: 'index',
         name: 'Editor',
-        meta: { title: '文章编辑' },
+        meta: { title: '内容编辑' },
         component: () => import('@/pages/admin/editor')
       }
     ]
