@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(title='新建任务', :visible.sync='show')
+  el-dialog(title='编辑任务', :visible.sync='show')
     el-form(:model='form', ref='form')
       el-form-item(label='任务内容', :label-width='formLabelWidth', required)
         el-input(v-model='form.content', placeholder='请输入', maxlength='64', autocomplete='off')
@@ -28,6 +28,7 @@ export default {
           { value: '8 h', label: '8 h' }
         ]
       },
+      id: '',
       form: {
         content: this.$env__is_preview ? '测试文本' : '',
         interval: this.$env__is_preview ? '7 h' : ''
@@ -36,8 +37,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions('admin/task', ['submitAddTask']),
-    open() {
+    ...mapActions('admin/task', ['submitEditTask']),
+    open({ content, interval, id }) {
+      this.form.id = id
+      this.form.content = content
+      this.form.interval = interval
       this.show = true
     },
     handleCancel() {
@@ -45,7 +49,7 @@ export default {
     },
     async handleSubmit() {
       try {
-        let rst = await this.submitAddTask(this.form)
+        let rst = await this.submitEditTask(this.form)
         this.$message.success(rst.msg || '添加成功')
       } catch (err) {
         this.$message.error(err.msg || '添加失败')

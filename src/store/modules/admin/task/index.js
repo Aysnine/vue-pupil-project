@@ -1,4 +1,11 @@
-import { fetchTask } from '@/api/admin/task'
+import {
+  fetchTask,
+  addTask,
+  editTask,
+  deleteTask,
+  stateFinished,
+  stateRemark
+} from '@/api/admin/task'
 
 export default {
   namespaced: true,
@@ -19,8 +26,54 @@ export default {
   actions: {
     async fetch({ commit }) {
       try {
-        let { data } = await fetchTask()
-        commit('SET_TASKS', data.tasks)
+        let rst = await fetchTask()
+        commit('SET_TASKS', rst.data.tasks)
+        return rst
+      } catch (err) {
+        throw err
+      }
+    },
+    async submitAddTask({ dispatch }, form) {
+      try {
+        let rst = await addTask(form)
+        dispatch('fetch')
+        return rst
+      } catch (err) {
+        throw err
+      }
+    },
+    async submitEditTask({ dispatch }, form) {
+      try {
+        let rst = await editTask(form)
+        dispatch('fetch')
+        return rst
+      } catch (err) {
+        throw err
+      }
+    },
+    async submitDeleteTask({ dispatch }, id) {
+      try {
+        let rst = await deleteTask(id)
+        dispatch('fetch')
+        return rst
+      } catch (err) {
+        throw err
+      }
+    },
+    async submitStateFinished({ dispatch }, id) {
+      try {
+        let rst = await stateFinished(id)
+        dispatch('fetch')
+        return rst
+      } catch (err) {
+        throw err
+      }
+    },
+    async submitStateRemark({ dispatch }, id) {
+      try {
+        let rst = await stateRemark(id)
+        dispatch('fetch')
+        return rst
       } catch (err) {
         throw err
       }

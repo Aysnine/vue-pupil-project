@@ -21,10 +21,11 @@ export default {
   actions: {
     async fetch({ commit, dispatch }) {
       try {
-        let { data } = await fetchDash()
+        let rst = await fetchDash()
         dispatch('admin/task/fetch', null, { root: true })
         dispatch('admin/summary/fetch', null, { root: true })
-        commit('SET_SUMMARY', data.summary)
+        commit('SET_SUMMARY', rst.data.summary)
+        return rst
       } catch (err) {
         throw err
       }

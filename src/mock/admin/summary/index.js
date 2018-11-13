@@ -1,6 +1,6 @@
 export default [
   {
-    path: /\/admin\/summary.*/,
+    path: /\/admin\/summary\/fetchSummary.*/,
     method: 'get',
     handle() {
       return {

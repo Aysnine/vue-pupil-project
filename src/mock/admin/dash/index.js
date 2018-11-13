@@ -1,6 +1,6 @@
 export default [
   {
-    path: /\/admin\/dash.*/,
+    path: /\/admin\/dash\/fetchDash.*/,
     method: 'get',
     handle() {
       return {

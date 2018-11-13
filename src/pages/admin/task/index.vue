@@ -19,6 +19,9 @@
             el-button(type='primary', icon='el-icon-plus', circle, size='small', @click='handleClickAdd')
         el-table(:data='list', style='width: 100%', max-height='512')
           el-table-column(label='#', type='index', width='80')
+          el-table-column(label='创建时间', prop='t', width='200')
+            template(slot-scope='scope')
+              span {{ formatDate(scope.row.t) }}
           el-table-column(label='任务内容', prop='content', width='300')
           el-table-column(label='任务用时', prop='interval', width='200')
           el-table-column(label='任务状态', prop='state'
@@ -27,18 +30,23 @@
           )
             template(slot-scope='scope')
               el-tag(:type='scope.row.state ? "success" : "primary"', disable-transitions) {{ scope.row.state ? '已完成' : '未完成' }}
-          el-table-column(width='160')
+          el-table-column(width='200')
             template(slot-scope='scope')
               .operate
-                el-button(type='primary', plain, icon='el-icon-edit', circle, size='small')
-                el-button(type='primary', plain, icon='el-icon-delete', circle, size='small')
+                el-button(v-if='scope.row.state', type='primary', plain, icon='el-icon-close', circle, size='small', @click='handleTaskStateRemark(scope.$index, scope.row)')
+                el-button(v-else, type='primary', plain, icon='el-icon-check', circle, size='small', @click='handleTaskStateFinished(scope.$index, scope.row)')
+                el-button(type='primary', plain, icon='el-icon-edit', circle, size='small', @click='handleClickEditTask(scope.$index, scope.row)')
+                el-button(type='primary', plain, icon='el-icon-delete', circle, size='small', @click='handleClickDeleteTask(scope.$index, scope.row)')
     add-task-dialog(ref='add-task-dialog')
+    edit-task-dialog(ref='edit-task-dialog')
     pretty-refresh(@refresh='fetch')
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import AddTaskDialog from './components/AddTaskDialog'
+import EditTaskDialog from './components/EditTaskDialog'
+import mt from 'moment'
 
 export default {
   mounted() {
@@ -67,16 +75,63 @@ export default {
     }
   },
   methods: {
-    ...mapActions('admin/task', ['fetch']),
+    ...mapActions('admin/task', [
+      'fetch',
+      'submitDeleteTask',
+      'submitStateFinished',
+      'submitStateRemark'
+    ]),
     filterTask(value, row) {
       return row.state === value
     },
+    formatDate(t) {
+      return mt(t).format('YYYY-MM-DD HH:mm')
+    },
     handleClickAdd() {
-      this.$refs['add-task-dialog'].show = true
+      this.$refs['add-task-dialog'].open()
+    },
+    handleClickEditTask(index, row) {
+      this.$refs['edit-task-dialog'].open(row)
+    },
+    handleClickDeleteTask(index, row) {
+      this.$confirm('确认删除', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          this.submitDeleteTask(row.id)
+            .then(rst => {
+              this.$message.success(rst.msg || '删除成功')
+            })
+            .catch(err => {
+              this.$message.error(err.msg || '删除失败')
+            })
+        })
+        .catch(() => {
+          // ...
+        })
+    },
+    async handleTaskStateFinished(index, row) {
+      try {
+        let rst = await this.submitStateFinished(row.id)
+        this.$message.success(rst.msg || '已标记为 已完成')
+      } catch (err) {
+        this.$message.error(err.msg || '标记失败')
+      }
+    },
+    async handleTaskStateRemark(index, row) {
+      try {
+        let rst = await this.submitStateRemark(row.id)
+        this.$message.success(rst.msg || '已标记为 未完成')
+      } catch (err) {
+        this.$message.error(err.msg || '标记失败')
+      }
     }
   },
   components: {
-    AddTaskDialog
+    AddTaskDialog,
+    EditTaskDialog
   }
 }
 </script>

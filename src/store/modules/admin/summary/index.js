@@ -19,8 +19,9 @@ export default {
   actions: {
     async fetch({ commit }) {
       try {
-        let { data } = await fetchSummary()
-        commit('SET_VISTOR', data.vistor)
+        let rst = await fetchSummary()
+        commit('SET_VISTOR', rst.data.vistor)
+        return rst
       } catch (err) {
         throw err
       }
