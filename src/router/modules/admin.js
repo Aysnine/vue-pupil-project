@@ -59,7 +59,8 @@ export default [
       {
         path: 'index',
         name: 'RoleAdmin',
-        meta: { title: '权限测试 Admin', role: ['admin'] }
+        meta: { title: '权限测试 Admin', role: ['admin'] },
+        component: () => import('@/pages/admin/role')
       }
     ]
   },
@@ -71,7 +72,8 @@ export default [
       {
         path: 'index',
         name: 'RoleLeader',
-        meta: { title: '权限测试 Leader', role: ['leader'] }
+        meta: { title: '权限测试 Leader', role: ['leader'] },
+        component: () => import('@/pages/admin/role')
       }
     ]
   },
@@ -83,7 +85,8 @@ export default [
       {
         path: 'index',
         name: 'RoleMember',
-        meta: { title: '权限测试 Member', role: ['member'] }
+        meta: { title: '权限测试 Member', role: ['member'] },
+        component: () => import('@/pages/admin/role')
       }
     ]
   },

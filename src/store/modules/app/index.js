@@ -1,15 +1,19 @@
-import { userLogin, userLogout, userInfo } from '@/api/app'
+import { userLogin, userLogout, userInfo, fetchRoles } from '@/api/app'
 import Plugins from '@/plugin'
 const { $cookie } = Plugins
 
 export default {
   namespaced: true,
   state: {
-    user: null
+    user: null,
+    roles: []
   },
   mutations: {
     SET_USER(state, val) {
       state.user = val
+    },
+    SET_ROLES(state, val) {
+      state.roles = val
     }
   },
   actions: {
@@ -17,19 +21,20 @@ export default {
       try {
         let token = $cookie.get('token')
         if (token) {
-          let res = await dispatch('profile', token)
-          return res
+          let rst = await dispatch('profile', token)
+          return rst
         }
       } catch (err) {
         throw err
       }
     },
-    async profile({ commit }, token) {
+    async profile({ commit, dispatch }, token) {
       try {
-        let res = await userInfo(token)
-        let { data } = res
+        let rst = await userInfo(token)
+        await dispatch('fetchRoles')
+        let { data } = rst
         commit('SET_USER', data)
-        return res
+        return rst
       } catch (err) {
         $cookie.remove('token')
         throw err
@@ -37,21 +42,30 @@ export default {
     },
     async login({ dispatch }, { account, pass }) {
       try {
-        let res = await userLogin({ account, pass })
-        let { token } = res
+        let rst = await userLogin({ account, pass })
+        let { token } = rst
         $cookie.set('token', token)
         await dispatch('profile', token)
-        return res
+        return rst
       } catch (err) {
         throw err
       }
     },
     async logout({ commit }) {
       try {
-        let res = await userLogout()
+        let rst = await userLogout()
         $cookie.remove('token')
         commit('SET_USER', null)
-        return res
+        return rst
+      } catch (err) {
+        throw err
+      }
+    },
+    async fetchRoles({ commit }) {
+      try {
+        let rst = await fetchRoles()
+        commit('SET_ROLES', rst.data.roles)
+        return rst
       } catch (err) {
         throw err
       }
