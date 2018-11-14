@@ -14,11 +14,12 @@
 
 <script>
 import QuillEditor from '@/components/extend/QuillEditor'
+import value from './value'
 
 export default {
   data() {
     return {
-      value: ''
+      value
     }
   },
   methods: {

@@ -13,35 +13,28 @@ export default [
     ]
   },
   {
-    path: '/admin/table',
-    meta: { title: '数据表格' },
+    path: '/admin/task',
     component: () => import('@/layout/admin'),
-    redirect: '/admin/table/index',
+    redirect: '/admin/task/index',
     children: [
       {
         path: 'index',
-        name: 'SimpleTable',
-        meta: { title: '简单的表格' },
-        component: () => import('@/pages/admin/table/simple')
-      },
-      {
-        path: 'complex',
-        name: 'ComplexTable',
-        meta: { title: '复杂的表格' },
-        component: () => import('@/pages/admin/table/complex')
+        name: 'Task',
+        meta: { title: '数据表格' },
+        component: () => import('@/pages/admin/task')
       }
     ]
   },
   {
-    path: '/admin/tree',
+    path: '/admin/summary',
     component: () => import('@/layout/admin'),
-    redirect: '/admin/tree/index',
+    redirect: '/admin/summary/index',
     children: [
       {
         path: 'index',
-        name: 'Tree',
-        meta: { title: '树形结构' },
-        component: () => import('@/pages/admin/tree')
+        name: 'Summary',
+        meta: { title: '数据图表' },
+        component: () => import('@/pages/admin/summary')
       }
     ]
   },
@@ -66,7 +59,8 @@ export default [
       {
         path: 'index',
         name: 'RoleAdmin',
-        meta: { title: '权限测试 Admin' }
+        meta: { title: '权限测试 Admin', role: ['admin'] },
+        component: () => import('@/pages/admin/role')
       }
     ]
   },
@@ -78,7 +72,8 @@ export default [
       {
         path: 'index',
         name: 'RoleLeader',
-        meta: { title: '权限测试 Leader' }
+        meta: { title: '权限测试 Leader', role: ['leader'] },
+        component: () => import('@/pages/admin/role')
       }
     ]
   },
@@ -90,7 +85,8 @@ export default [
       {
         path: 'index',
         name: 'RoleMember',
-        meta: { title: '权限测试 Member' }
+        meta: { title: '权限测试 Member', role: ['member'] },
+        component: () => import('@/pages/admin/role')
       }
     ]
   },

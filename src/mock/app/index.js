@@ -50,5 +50,20 @@ export default [
             msg: '登陆过期，请重新登陆'
           }
     }
+  },
+  {
+    path: /\/user\/roles.*/,
+    method: 'get',
+    handle({ db }) {
+      return {
+        code: 0,
+        data: {
+          roles: db
+            .get('roles')
+            .cloneDeep()
+            .value()
+        }
+      }
+    }
   }
 ]

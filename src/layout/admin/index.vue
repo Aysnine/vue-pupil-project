@@ -10,7 +10,7 @@
         i.el-icon-arrow-right.el-icon--right
     el-container
       el-aside.aside(width='240px')
-        el-scrollbar(:native='true')
+        el-scrollbar(v-if='hk', :native='true')
           pure-nav-menu.nav-menu(:routes='routes', mode='vertical')
       el-main.main
         transition(name='fade-transform', mode='out-in')
@@ -23,12 +23,37 @@
 <script>
 import FuncSearch from './components/FuncSearch'
 import routes from '@/router/modules/admin'
+import { mapGetters } from 'vuex'
+
+const R = (f, s) =>
+  s.map(i => (f(i), i.children && i.children.length ? R(f, i.children) : 0, i))
 
 export default {
   data() {
     return {
-      routes,
-      inSearch: false
+      inSearch: false,
+      hk: true
+    }
+  },
+  computed: {
+    ...mapGetters(['role']),
+    routes() {
+      // 遍及路由节点，按角色显示不同页面
+      R(i => {
+        if (i.meta && i.meta.role) {
+          i.meta.hide = i.meta.role.indexOf(this.role) == -1
+        }
+      }, routes)
+      return routes
+    }
+  },
+  watch: {
+    routes() {
+      // ! 强制更新菜单，有待优化，暴力不可取
+      this.hk = false
+      this.$nextTick(() => {
+        this.hk = true
+      })
     }
   },
   methods: {

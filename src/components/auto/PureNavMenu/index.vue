@@ -9,7 +9,10 @@
     :style='{float: align}'
     :class='mode'
   )
-    template(v-for='item in routes', v-if='!(item.meta && item.meta.hide) && item.children')
+    template(
+      v-for='item in routes'
+      v-if='!((item.meta && item.meta.hide) || (item.children && !item.children.filter(i => i.meta ? !i.meta.hide:true).length))'
+    )
       menu-item(v-if='item.children.length===1 && !item.children[0].children', :key='item.children[0].name', :item='item')
       menu-items(v-else, :key='item.name', :item='item')
 </template>

@@ -1,8 +1,8 @@
 import request from '@/lib/main/el-request'
 
-export const fetchDash = () => {
+export const fetchSummary = () => {
   return request({
     method: 'get',
-    url: '/admin/dash/fetchDash'
+    url: '/admin/summary/fetchSummary'
   })
 }

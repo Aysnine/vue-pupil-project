@@ -16,37 +16,40 @@ witch.rules([
 
   {
     match: '/login',
-    handle() {
-      if ($cookie.get('token')) {
-        return '/404'
-      }
+    validator() {
+      return !!$cookie.get('token')
+    },
+    reactor() {
+      return '/404'
     }
   },
   {
-    match: '/admin*',
-    handle() {
-      if ($cookie.get('token')) {
-        Message.warning('未登录，请先登录')
-        return '/login'
-      }
+    match: '/admin/**',
+    validator() {
+      return !$cookie.get('token')
+    },
+    reactor() {
+      Message.warning('未登录，请先登录')
+      return '/login'
     }
   },
 
   /* role control */
 
   {
-    match: '/admin*',
-    handle({ to }) {
+    match: '/admin/**',
+    validator({ to }) {
       let user = store.getters.user
-      if (
+      return (
         user &&
         user.role &&
         to.meta &&
         to.meta.role &&
         to.meta.role.indexOf(user.role) == -1
-      ) {
-        return '/404'
-      }
+      )
+    },
+    reactor() {
+      return '/404'
     }
   }
 ])
@@ -58,3 +61,5 @@ witch.before(() => {
 witch.after(() => {
   NProgress.done()
 })
+
+export default witch

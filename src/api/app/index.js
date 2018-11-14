@@ -23,3 +23,10 @@ export const userInfo = token => {
     data: qs.stringify({ token })
   })
 }
+
+export const fetchRoles = () => {
+  return request({
+    method: 'get',
+    url: '/user/roles'
+  })
+}
