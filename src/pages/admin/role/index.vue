@@ -1,11 +1,9 @@
 <template lang="pug">
   .page-wrap
     .content
-      //- p(v-for='item in roles')
+      div(v-for='item in roles')
         h1 {{ item.name }}
         h3 {{ item.id }}
-      h1 {{ roler.name }}
-      h3 {{ roler.id }}
 </template>
 
 <script>
