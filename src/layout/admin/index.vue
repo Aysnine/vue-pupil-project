@@ -6,7 +6,7 @@
           img(height='60', src='@/assets/logo-text.png')
       el-button(size='small', icon='el-icon-search', round, @click='handleFuncSearch') 功能索引
       el-button(size='small', round, @click='handleLogout')
-        | 退出登陆
+        | 退出登录
         i.el-icon-arrow-right.el-icon--right
     el-container
       el-aside.aside(width='240px')

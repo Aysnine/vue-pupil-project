@@ -23,7 +23,7 @@
             el-input(type='text' v-model='form.identify', autocomplete='off', placeholder='请输入图片内容')
       el-form-item
         el-button.button-inline(type='primary', @click='handleSubmit("form")')
-          span.text-spaced 登陆
+          span.text-spaced 登录
     slot(name='append')
 </template>
 

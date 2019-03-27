@@ -15,8 +15,8 @@ export default [
           .write()
       }
       return isAuth
-        ? { code: 0, msg: '登陆成功', token }
-        : { code: 1, msg: '登陆失败，请检查用户名或密码' }
+        ? { code: 0, msg: '登录成功', token }
+        : { code: 1, msg: '登录失败，请检查用户名或密码' }
     }
   },
   {
@@ -47,7 +47,7 @@ export default [
           }
         : {
             code: 1,
-            msg: '登陆过期，请重新登陆'
+            msg: '登录过期，请重新登录'
           }
     }
   },

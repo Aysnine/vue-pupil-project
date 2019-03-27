@@ -21,7 +21,7 @@ export default [
       {
         path: 'login',
         name: 'login',
-        meta: { title: '登陆' },
+        meta: { title: '登录' },
         component: () => import('@/pages/splash/login')
       }
     ]
